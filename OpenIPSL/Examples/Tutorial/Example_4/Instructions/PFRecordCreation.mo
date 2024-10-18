@@ -3,27 +3,30 @@ model PFRecordCreation "Creating the PF Structure"
   extends Modelica.Icons.Information;
   annotation (DocumentationClass=true, Documentation(info="<html>
   <h5>Creating and Integrating the Power Flow Structure</h5>
+  <p>After completing the instructions in <a href=\"modelica://OpenIPSL.Examples.Tutorial.Example_4.Instructions.SMIBSystemAssembly\">Assembling a SMIB System</a>, you should have a <font color=\"blue\"><code>SMIB</code></font> folder inside your working directory. </p>
   <ol>
-    <li>Create a directory called <font color=\"blue\"><code>models</code></font> above your model current folder. </li>
-    <li>Move your model folder to the directory created in <strong>step 2</strong>. For example, let&apos;s assume you are using the new version of OpenIPSL, then if your model is saved in a folder called <font color=\"blue\"><code>SMIB</code></font>, the new path of your folder should be <font color=\"blue\"><code>models/SMIB</code></font>. </li>
-    <li>Make sure the directory <font color=\"blue\"><code>pf2rec</code></font> downloaded from the <font color=\"blue\"><code>SMIB_Tutorial</code></font> repository is in the same directory. The tree below shows how your folder structure should look like:
+    <li>Create a directory called <font color=\"blue\"><code>SMIB_Example</code></font> at the same level where the <font color=\"blue\"><code>SMIB</code></font> folder is located. </li>
+    <li>Create a directory called <font color=\"blue\"><code>models</code></font> below your new <font color=\"blue\"><code>SMIB_Example</code></font> folder. </li>
+    <li>Move the <font color=\"blue\"><code>SMIB</code></font> folder below the previously added <font color=\"blue\"><code>models</code></font> folder. </li>
+    <li>Copy the <font color=\"blue\"><code>pf2rec</code></font> folder from the downloaded <font color=\"blue\"><code>SMIB_Tutorial</code></font> repository to the <font color=\"blue\"><code>SMIB_Example</code></font> folder. The tree below shows how your folder structure should look like:
     <blockquote><pre>
-C:\\Users\\...>tree /f /a SMIB
+C:\\Users\\...>tree /f /a SMIB_Example
 Folder PATH listing
 Volume serial number is ...
-C:\\USERS\\...\\SMIB
-|   create_records.py
-|   run_pf.py
-|
+C:\\USERS\\...\\SMIB_Example
 +---models
 |   \\---SMIB
 |       |   ...
 |
 \\---pf2rec
+    |   create_pf_records.py
+    |   generate_component_list.py
+    |   gridcal2rec.py
+    |   __init__.py
     |   ...
     </pre></blockquote>
     </li>
-    <li>In the same location where you have your <font color=\"blue\"><code>models</code></font> and <font color=\"blue\"><code>pf2rec</code></font> folders, create a new python file called <font color=\"blue\"><code>create_records.py</code></font>. Copy and paste the following code in the file. <em>Be careful with indentation!</em>
+    <li>In the same location where you have your <font color=\"blue\"><code>models</code></font> and <font color=\"blue\"><code>pf2rec</code></font> folders (i.e., <font color=\"blue\"><code>SMIB_Example</code></font> directory), create a new python file called <font color=\"blue\"><code>create_records.py</code></font>. Copy and paste the following code in the file. <em>Be careful with indentation!</em>
     <blockquote><pre>
 <strong>from</strong> pf2rec <strong>import</strong> *
 
@@ -74,7 +77,7 @@ args = parser.parse_args()
     create_pf_records(_model,
                       path_mo_file,
                       data_path,
-                      openipsl_version = _version)
+                      openipsl_version = <em>'3.1.0-dev'</em>)
 
     </pre></blockquote>
     </li>
@@ -83,12 +86,16 @@ args = parser.parse_args()
     <li>Go to the Modelica text of the function and type the following code:
     <blockquote><pre>
 <strong>function</strong> saveTotalSMIBModel \"Save the SMIB package as a total model\"
-  <strong>output</strong> <em>Boolean</em> ok \"True if succesful\";
+  <strong>extends</strong> <em>Modelica.Icons.Function</em>;
+  <strong>output</strong> <em>Boolean</em> ok \"= true if succesful\";
+<strong>protected</strong>
+  <em>String</em> targetDir = \"C:/Users/Miguel/SMIB_Example/models/SMIB\";
 <strong>algorithm</strong>
-  ok := <em>saveTotalModel</em>(\"SMIBTotal.mo\", \"SMIB\", <strong>true</strong>);
+  ok := <em>saveTotalModel</em>(targetDir + \"/\" + \"SMIBTotal.mo\", \"SMIB\", <strong>true</strong>);
 <strong>end</strong> saveTotalSMIBModel;
     </pre></blockquote>
     <hr>
+    <p>&#x1f528; <strong>Update</strong> the <em>targetDir</em> variable value with the appropriate path to reach the <font color=\"blue\"><code>SMIB</code></font> folder. </p>
     <p>&#x1F4CC; This function has no inputs and only one boolean output. The modelica standard function <em><font color=\"blue\"><code>saveTotalModel</code></font></em> is called inside the algorithm section with predefined arguments. You can check the information view of <em><font color=\"blue\"><code>saveTotalModel</code></font></em> to get to know the proper use of each of its parameters. To do that, make sure the <font color=\"blue\"><code>DymolaCommands</code></font> library is loaded within the Package Browser. Then navigate as shown in the picture below </p>
     <p>
       <img src=\"modelica://OpenIPSL/Resources/images/example_4/PFRecordCreation/SaveTotalModelFunction.png\" alt=\"SaveTotalModelFunction\" />
