@@ -84,8 +84,12 @@ def generate_component_list(model_mo_path):
         # If nothing was found with the new PSS/E-based plant model, look for this
         # WARNING: no result might be found
         # This regex has worked with the N44 model
-        gen_regex = re.compile(r'[?:\w.]*(?:\w)*Gene(?:[rat])*(?:\w)*.(?:\w)* (\w+)*')
-        gens = gen_regex.findall(model_mo_full_text)
+        regex_patterns = [r'BaseModels.GeneratingUnits.GeneratorOnly(?:\s)*(\w+)',
+                          r'GeneratingUnits.InfiniteBus(?:\s)*(\w+)']
+        for pattern in regex_patterns:
+            gen_regex = re.compile(pattern)
+            gens.extend(gen_regex.findall(model_mo_full_text))
+        print(gens) # remove
 
     # If at this point there is nothing in `gens`, an error is raised
     if len(gens) == 0:
