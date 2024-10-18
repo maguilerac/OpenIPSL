@@ -42,7 +42,7 @@ def _write_single_pf(grid, pf, model_name, data_dirs, pf_num, export_pf_results,
     loads_data_dir = data_dirs['loads']
     machines_data_dir = data_dirs['machines']
     trafos_data_dir = data_dirs['trafos']
-    pf_data_dir = data_dirs['pf_data']
+    pf_data_dir = data_dirs['PFData']
 
     #####################################
     ### WRITING LOAD POWER FLOW DATA ####
@@ -63,42 +63,42 @@ def _write_single_pf(grid, pf, model_name, data_dirs, pf_num, export_pf_results,
     else:
         extension_record = f'{pf_num:05d}'
 
-    # If it is not, then append `PF_Data` at the end of the package.order file
+    # If it is not, then append `PFData` at the end of the package.order file
     with open(pk_order_path, 'a') as file:
-        if f'PF_{extension_record}\n' not in lines:
-            file.writelines(f'PF_{extension_record}\n')
+        if f'PF{extension_record}\n' not in lines:
+            file.writelines(f'PF{extension_record}\n')
 
     file.close()
 
-    pf_result_file_path = os.path.join(pf_data_dir, f"PF_{extension_record}.mo")
+    pf_result_file_path = os.path.join(pf_data_dir, f"PF{extension_record}.mo")
 
     # Heading of the record definition
     pf_result = open(pf_result_file_path, "w+")
-    pf_result.write(f"within {model_name}.PF_Data;\n")
-    pf_result.write(f"record PF_{extension_record}\n")
-    pf_result.write(f"extends {model_name}.PF_Data.Power_Flow_Template;\n\n")
+    pf_result.write(f"within {model_name}.PFData;\n")
+    pf_result.write(f"record PF{extension_record}\n")
+    pf_result.write(f"extends {model_name}.PFData.PowerFlowTemplate;\n\n")
 
-    pf_result.write(f"replaceable record Bus = {model_name}.PF_Data.Bus_Data.PF_Bus_{extension_record} \"Bus power flow results\"\n")
-    pf_result.write(f"constrainedby {model_name}.PF_Data.Bus_Data.Bus_Template;\n")
+    pf_result.write(f"replaceable record Bus = {model_name}.PFData.BusData.PFBus{extension_record} \"Bus power flow results\"\n")
+    pf_result.write(f"constrainedby {model_name}.PFData.BusData.BusTemplate;\n")
     #pf_result.write("annotation(choicesAllMatching);\n")
     pf_result.write(f"Bus bus;\n\n")
 
-    pf_result.write(f"replaceable record Loads = {model_name}.PF_Data.Loads_Data.PF_Loads_{extension_record} \"Loads power flow results\"\n")
-    pf_result.write(f"constrainedby {model_name}.PF_Data.Loads_Data.Loads_Template;\n")
+    pf_result.write(f"replaceable record Load = {model_name}.PFData.LoadData.PFLoad{extension_record} \"Loads power flow results\"\n")
+    pf_result.write(f"constrainedby {model_name}.PFData.LoadData.LoadTemplate;\n")
     #pf_result.write("annotation(choicesAllMatching);\n")
-    pf_result.write(f"Loads loads;\n\n")
+    pf_result.write(f"Load load;\n\n")
 
-    pf_result.write(f"replaceable record Machines = {model_name}.PF_Data.Machines_Data.PF_Machines_{extension_record} \"Machine power flow results\"\n")
-    pf_result.write(f"constrainedby {model_name}.PF_Data.Machines_Data.Machines_Template;\n")
+    pf_result.write(f"replaceable record Machine = {model_name}.PFData.MachineData.PFMachine{extension_record} \"Machine power flow results\"\n")
+    pf_result.write(f"constrainedby {model_name}.PFData.MachineData.MachineTemplate;\n")
     #pf_result.write("annotation(choicesAllMatching);\n")
-    pf_result.write(f"Machines machines;\n\n")
+    pf_result.write(f"Machine machine;\n\n")
 
-    pf_result.write(f"replaceable record Trafos = {model_name}.PF_Data.Trafos_Data.PF_Trafos_{extension_record} \"Trafos power flow results\"\n")
-    pf_result.write(f"constrainedby {model_name}.PF_Data.Trafos_Data.Trafos_Template;\n")
+    pf_result.write(f"replaceable record Trafo = {model_name}.PFData.TrafoData.PFTrafo{extension_record} \"Trafos power flow results\"\n")
+    pf_result.write(f"constrainedby {model_name}.PFData.TrafoData.TrafoTemplate;\n")
     #pf_result.write("annotation(choicesAllMatching);\n")
-    pf_result.write(f"Trafos trafos;\n\n")
+    pf_result.write(f"Trafo trafo;\n\n")
 
-    pf_result.write(f"end PF_{extension_record};".format(num = pf_num))
+    pf_result.write(f"end PF{extension_record};".format(num = pf_num))
     pf_result.close()
 
     # Adjusting the units to the new format in the library
@@ -115,11 +115,11 @@ def _write_single_pf(grid, pf, model_name, data_dirs, pf_num, export_pf_results,
     #####################################
 
     # Creating '.mo' file for storing the load power flow results
-    load_result_file_path = os.path.join(loads_data_dir, f"PF_Loads_{extension_record}.mo")
+    load_result_file_path = os.path.join(loads_data_dir, f"PFLoad{extension_record}.mo")
     load_result = open(load_result_file_path, "w+")
-    load_result.write(f"within {model_name}.PF_Data.Loads_Data;\n")
-    load_result.write(f"record PF_Loads_{extension_record}\n")
-    load_result.write(f"extends {model_name}.PF_Data.Loads_Data.Loads_Template(\n\n")
+    load_result.write(f"within {model_name}.PFData.LoadData;\n")
+    load_result.write(f"record PFLoad{extension_record}\n")
+    load_result.write(f"extends {model_name}.PFData.LoadData.LoadTemplate(\n\n")
 
     for n_load, load in enumerate(grid.get_loads()):
 
@@ -131,18 +131,18 @@ def _write_single_pf(grid, pf, model_name, data_dirs, pf_num, export_pf_results,
             load_result.write(f"QL{n_load + 1} = {adjust_units}({load.Q:.7f}),\n\n")
 
     load_result.write(");\n")
-    load_result.write(f"end PF_Loads_{extension_record};")
+    load_result.write(f"end PFLoad{extension_record};")
     load_result.close()
 
     ####################################
     ### WRITING BUS POWER FLOW DATA ####
     ####################################
 
-    bus_result_file_path = os.path.join(bus_data_dir, f"PF_Bus_{extension_record}.mo")
+    bus_result_file_path = os.path.join(bus_data_dir, f"PFBus{extension_record}.mo")
     bus_result = open(bus_result_file_path, "w+")
-    bus_result.write(f"within {model_name}.PF_Data.Bus_Data;\n")
-    bus_result.write(f"record PF_Bus_{extension_record}\n")
-    bus_result.write(f"extends {model_name}.PF_Data.Bus_Data.Bus_Template(\n\n")
+    bus_result.write(f"within {model_name}.PFData.BusData;\n")
+    bus_result.write(f"record PFBus{extension_record}\n")
+    bus_result.write(f"extends {model_name}.PFData.BusData.BusTemplate(\n\n")
 
     for n_bus, bus in enumerate(grid.get_buses()):
 
@@ -158,7 +158,7 @@ def _write_single_pf(grid, pf, model_name, data_dirs, pf_num, export_pf_results,
 
         # Writing bus voltage phasor magnitude
         bus_voltage_magnitude = np.abs(pf.results.voltage[n_bus])
-        bus_result.write("V{b_name} = {v_magn:.7f},\n".format(b_name = n_bus + 1, v_magn = bus_voltage_magnitude))
+        bus_result.write("v{b_name} = {v_magn:.7f},\n".format(b_name = n_bus + 1, v_magn = bus_voltage_magnitude))
 
         # Writing bus voltage phasor angle in degrees
         bus_voltage_angle = np.arctan(np.imag(pf.results.voltage[n_bus]) \
@@ -169,7 +169,7 @@ def _write_single_pf(grid, pf, model_name, data_dirs, pf_num, export_pf_results,
             bus_result.write("A{b_name} = {v_angl:.7f},\n\n".format(b_name = n_bus + 1, v_angl = bus_voltage_angle))
 
     bus_result.write(");\n")
-    bus_result.write(f"end PF_Bus_{extension_record};")
+    bus_result.write(f"end PFBus{extension_record};")
     bus_result.close()
 
     ############################################
@@ -190,11 +190,11 @@ def _write_single_pf(grid, pf, model_name, data_dirs, pf_num, export_pf_results,
             br_trafos_to.append(branch.bus_to)
             br_trafos_name.append(branch.name.split()) # Strip is used to remove blank spaces from the name
 
-    trafos_result_file_path = os.path.join(trafos_data_dir, f"PF_Trafos_{extension_record}.mo")
+    trafos_result_file_path = os.path.join(trafos_data_dir, f"PFTrafo{extension_record}.mo")
     trafos_result = open(trafos_result_file_path, "w+")
-    trafos_result.write(f"within {model_name}.PF_Data.Trafos_Data;\n")
-    trafos_result.write(f"record PF_Trafos_{extension_record}\n")
-    trafos_result.write(f"extends {model_name}.PF_Data.Trafos_Data.Trafos_Template(\n\n")
+    trafos_result.write(f"within {model_name}.PFData.TrafoData;\n")
+    trafos_result.write(f"record PFTrafo{extension_record}\n")
+    trafos_result.write(f"extends {model_name}.PFData.TrafoData.TrafoTemplate(\n\n")
 
     if re.search(r"3.\d.\d", __VERSION) or __VERSION == '4.0.0':
         # Writing tap results for old GridCal versions
@@ -209,7 +209,7 @@ def _write_single_pf(grid, pf, model_name, data_dirs, pf_num, export_pf_results,
                 trafos_result.write("t2_trafo_{n_traf} = 1.0000000,\n\n".format(n_traf = n_trafo + 1))
 
         trafos_result.write(");\n")
-        trafos_result.write(f"end PF_Trafos_{extension_record};")
+        trafos_result.write(f"end PFTrafo{extension_record};")
         trafos_result.close()
     elif re.search(r"4.\d(.\d)*", __VERSION):
         # Writing tap results for the latest 4.0.0+ GridCal version
@@ -223,7 +223,7 @@ def _write_single_pf(grid, pf, model_name, data_dirs, pf_num, export_pf_results,
                 trafos_result.write("t2_trafo_{n_traf} = 1.0000000,\n\n".format(n_traf = n_trafo + 1))
 
         trafos_result.write(");\n")
-        trafos_result.write(f"end PF_Trafos_{extension_record};")
+        trafos_result.write(f"end PFTrafo{extension_record};")
         trafos_result.close()
 
     ############################################
@@ -231,11 +231,11 @@ def _write_single_pf(grid, pf, model_name, data_dirs, pf_num, export_pf_results,
     ############################################
 
     # Creating the '.mo' file
-    machines_result_file_path = os.path.join(machines_data_dir, f"PF_Machines_{extension_record}.mo")
+    machines_result_file_path = os.path.join(machines_data_dir, f"PFMachine{extension_record}.mo")
     machines_result = open(machines_result_file_path, "w+")
-    machines_result.write(f"within {model_name}.PF_Data.Machines_Data;\n")
-    machines_result.write(f"record PF_Machines_{extension_record}\n")
-    machines_result.write(f"extends {model_name}.PF_Data.Machines_Data.Machines_Template(\n\n")
+    machines_result.write(f"within {model_name}.PFData.MachineData;\n")
+    machines_result.write(f"record PFMachine{extension_record}\n")
+    machines_result.write(f"extends {model_name}.PFData.MachineData.MachineTemplate(\n\n")
 
     # Creating Pandas DataFrame with power flow results and bus type for each bus (power only)
     pf_S_bus_results = pd.DataFrame(columns = [], index = pf.results.bus_names)
@@ -392,7 +392,7 @@ def _write_single_pf(grid, pf, model_name, data_dirs, pf_num, export_pf_results,
             machines_result.write(f"QG{n_gen + 1} = {adjust_units}({Q_machine:.7f}),\n\n")
 
     machines_result.write(");\n")
-    machines_result.write(f"end PF_Machines_{extension_record};")
+    machines_result.write(f"end PFMachine{extension_record};")
     machines_result.close()
 
     # ----------------------------------------------------------------------
@@ -420,7 +420,7 @@ def _write_single_pf(grid, pf, model_name, data_dirs, pf_num, export_pf_results,
         df_voltage["d [deg]"] = np.arctan(np.imag(pf.results.voltage)/np.real(pf.results.voltage))*180/np.pi
 
         # Exporting to `.csv`
-        voltage_results = os.path.join(pf_data_csv_dir, f"PF_bus_results_{extension_record}.csv")
+        voltage_results = os.path.join(pf_data_csv_dir, f"PFBusresults_{extension_record}.csv")
         df_voltage.to_csv(voltage_results, index = True)
 
         ########################
@@ -458,7 +458,7 @@ def _write_single_pf(grid, pf, model_name, data_dirs, pf_num, export_pf_results,
         df_bus["Bus_Type"] = pf.results.bus_types
 
         # Exporting to `.csv`
-        bus_power_results = os.path.join(pf_data_csv_dir, f"PF_bus_power_results_{extension_record}.csv")
+        bus_power_results = os.path.join(pf_data_csv_dir, f"PFBuspower_results_{extension_record}.csv")
         df_bus.to_csv(bus_power_results, index = True)
 
 
@@ -475,7 +475,7 @@ def gridcal2rec(grid, pf, model_name, data_path = None, pf_num = 1, export_pf_re
     - `pf`: GridCal power flow object (containing power flow results)
     In case this is a time-series power flow result, the flag `is_time_series` must be set to `True`
     - `model_name`: name of the Modelica model (for creating records the first time)
-    - `path_pf_data`: absolute path to the `PF_data` folder where the records will be written
+    - `path_pf_data`: absolute path to the `PFData` folder where the records will be written
     - `pf_num`: number of the power flow (for automation in an outer loop)
     - `export_pf_results`: export power flow results as `.csv` files: one for buses, another for machines
     - `is_time_series`: flag that indicates whether the script is being called inside a time-series power flow loop. It only changes the name of the output file
@@ -489,27 +489,26 @@ def gridcal2rec(grid, pf, model_name, data_path = None, pf_num = 1, export_pf_re
     10/09/2020 by Sergio A. Dorado-Rojas
     '''
 
-    # Getting the path to the `PF_Data` folder
+    # Getting the path to the `PFData` folder
     # That should be the current working directory if nothing has been specified --for testing--
     if data_path is None:
         data_path = os.getcwd()
 
-    pf_data_dir = os.path.join(data_path, "PF_Data")
+    pf_data_dir = os.path.join(data_path, "PFData")
 
-    # Creating the `PF_Data` folder if it does not exist yet
+    # Creating the `PFData` folder if it does not exist yet
     if not os.path.exists(pf_data_dir):
         os.makedirs(pf_data_dir)
 
     # Creating directories for power flow results (buses, loads, machines and trafos)
-    bus_data_dir = os.path.join(pf_data_dir, "Bus_Data")
-    loads_data_dir = os.path.join(pf_data_dir, "Loads_Data")
-    machines_data_dir = os.path.join(pf_data_dir, "Machines_Data")
-    trafos_data_dir = os.path.join(pf_data_dir, "Trafos_Data")
+    bus_data_dir = os.path.join(pf_data_dir, "BusData")
+    loads_data_dir = os.path.join(pf_data_dir, "LoadData")
+    machines_data_dir = os.path.join(pf_data_dir, "MachineData")
+    trafos_data_dir = os.path.join(pf_data_dir, "TrafoData")
 
     data_dirs = {'buses': bus_data_dir,
     'loads' : loads_data_dir,
     'trafos' : trafos_data_dir,
     'machines' :  machines_data_dir,
-    'pf_data' :  pf_data_dir}
-
+    'PFData' :  pf_data_dir}
     _write_single_pf(grid, pf, model_name, data_dirs, pf_num, export_pf_results, is_time_series, ts_name, openipsl_version)
