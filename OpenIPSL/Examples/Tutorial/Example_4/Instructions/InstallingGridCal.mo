@@ -172,10 +172,10 @@ Successfully installed Cython-3.0.11 MarkupSafe-3.0.2 POAP-0.1.26 PySide2-5.15.2
 
 (openipsl_tutorial) C:\\git\\my_gridcal>
     </pre></blockquote>
-    </li>
     <hr>
     <p>&#x1F4CC; There are a bunch of packages required to be installed and it can take a while to complete it.</p>
     <hr>
+    </li>
     <li>Navigate to the <font color=\"blue\"><code>src</code></font> folder by using the <code>cd</code> command:
     <blockquote><pre>
 <strong>cd</strong> src
@@ -222,10 +222,10 @@ setuptools         75.1.0
 xyzservices        2024.9.0
 zipp               3.20.2
     </pre></blockquote>
-    </li>
     <hr>
     <p>&#x1F4CC; Remember that GridCal has only been installed in the current environment. Therefore, whenever you use a script that requires this library the environment should be activated.</p>
     <hr>
+    </li>
     <li>Test your installation running this python command:
     <blockquote><pre>
 <strong>from</strong> GridCal.Engine <strong>import</strong> *
