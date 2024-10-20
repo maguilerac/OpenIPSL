@@ -5,12 +5,12 @@ model PopulatingRecords "Populating PF Records"
   <h5>Populating Power Flows with GridCal</h5>
   <p>The next step is to populate our model with power flow results generated from GridCal. For simplicity, we will create a power flow model from an accompanying PSS/E <font color=\"blue\"><code>.raw</code></font>. However, it is possible to run the power flows from a native GridCal model. </p>
   <ol>
-    <li><a href=\"https://github.com/ALSETLab/SMIB_Tutorial/tree/master/models/_old/SMIB/PSSE_Files\">Download</a> the accompanying PSS/E <font color=\"blue\"><code>.raw</code></font> file (<font color=\"blue\"><code>SMIB_Base_Case.raw</code></font>) and save it in your model directory under <font color=\"blue\"><code>PSSE_Files</code></font>. The <font color=\"blue\"><code>.dyr</code></font> file is not required for power flow computations.
+    <li>Copy the <a href=\"modelica://OpenIPSL/Resources/utils/pfRecordCreator/models/_new/SMIB\">PSSE_Files</a> folder to the <font color=\"blue\"><code>SMIB_Example/models/SMIB</code></font> folder. Note: The <font color=\"blue\"><code>.dyr</code></font> file is not required for power flow computations.
     <p>
       <img src=\"modelica://OpenIPSL/Resources/images/example_4/PopulatingRecords/PSSEFilesFolder.png\" alt=\"PSSEFilesFolder\" />
     </p>
     </li>
-      <li>Create a new Python script called <font color=\"blue\"><code>run_pf.py</code></font>. Copy and paste the following code inside it.
+      <li>Create a new Python script called <font color=\"blue\"><code>run_pf.py</code></font> within the <font color=\"blue\"><code>SMIB_Example</code></font> folder. Copy and paste the following code inside it.
     <blockquote><pre>
 <strong>from</strong> pf2rec <strong>import</strong> *
 
@@ -79,6 +79,23 @@ gridcal2rec(grid = grid, pf = pf, model_name = _model,
     <li>Execute <font color=\"blue\"><code>run_pf.py</code></font> from a terminal.
     <blockquote><pre>
 <strong>python</strong> run_pf.py SMIB --version 2.0.0
+
+(openipsl_tutorial) c:\Users\Miguel\SMIB_Example><strong>python</strong> run_pf.py SMIB --version 2.0.0
+Bentayga is not available
+Newton native unavailable
+NR Iteration 0--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+error 0.5
+NR Iteration 1--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+error 0.016918884074430318
+NR Iteration 2--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+error 2.1358057258752394e-05
+NR Iteration 3--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+error 3.453419494814369e-11
+NR Iteration 4--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+error 1.769235729799304e-15
+
+(openipsl_tutorial) c:\Users\Miguel\SMIB_Example>
+
     </pre></blockquote>
     <hr>
     <p>&#x1F4CC; A new power flow record called <font color=\"blue\"><code>PF00000</code></font> should be generated inside the <font color=\"blue\"><code>PFData</code></font> subfolder. </p>
@@ -90,6 +107,17 @@ gridcal2rec(grid = grid, pf = pf, model_name = _model,
     </p>
     </li>
     <li>In the diagram layer of your SMIB model, double click the power flow component <font color=\"blue\"><code>pf</code></font>. Select the newly created power flow <font color=\"blue\"><code>PF00000</code></font> as the value for the <font color=\"blue\"><code>PowerFlow</code></font> field. By doing so, we are specifying that the model will initialize using the power flow results in that specific container.
+    <p>&#x1F4CC; You can alternatively modify the <strong>Modelica Text</strong> of the <font color=\"blue\"><code>SMIB</code></font> Experiment model as follows: </p>
+    <blockquote><pre>
+model SMIB
+  extends Modelica.Icons.Example;
+  <strong>extends BaseModels.BaseNetwork.SMIBPartial(pf(redeclare record PowerFlow = PFData.PF00000));</strong>
+  replaceable BaseModels.GeneratingUnits.GeneratorOnly       genunit...
+equation 
+  ...
+  annotation ...
+end SMIB;
+    </pre></blockquote>
     <p>
       <img src=\"modelica://OpenIPSL/Resources/images/example_4/PopulatingRecords/ChoosePopulatedPFRecord.png\" alt=\"ChoosePopulatedPFRecord\" />
     </p>
