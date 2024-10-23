@@ -52,7 +52,7 @@ Q
     <blockquote><pre>
 <strong>python</strong> run_pf.py SMIB
 
-(openipsl_tutorial) c:\Users\Miguel\SMIB_Example><strong>python</strong> run_pf.py SMIB
+(openipsl_tutorial) c:\\Users\\Miguel\\SMIB_Example><strong>python</strong> run_pf.py SMIB
 It 0, error 0.5, converged False, x [0. 0. 0. 1. 1.], dx not computed yet
 --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 Iter: 1
@@ -71,7 +71,7 @@ Iter: 4
 --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 It 4, error 3.802513859341161e-15, converged True, x [ 0.0706208  -0.00500868 -0.01005778  0.99598418  0.99199354], dx [ 0. -0. -0. -0. -0.]
 
-(openipsl_tutorial) c:\Users\Miguel\SMIB_Example>
+(openipsl_tutorial) c:\\Users\\Miguel\\SMIB_Example>
 
     </pre></blockquote>
     <hr>
