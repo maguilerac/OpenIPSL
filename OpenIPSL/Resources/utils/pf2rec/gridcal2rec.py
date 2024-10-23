@@ -201,9 +201,9 @@ def _write_single_pf(grid, pf, model_name, data_dirs, pf_num, export_pf_results,
             else:
                 trafos_result.write("t2_trafo_{n_traf} = 1.0000000,\n\n".format(n_traf = n_trafo + 1))
 
-        trafos_result.write(");\n")
-        trafos_result.write(f"end PFTrafo{extension_record};")
-        trafos_result.close()
+    trafos_result.write(");\n")
+    trafos_result.write(f"end PFTrafo{extension_record};")
+    trafos_result.close()
 
     ############################################
     ### WRITING GENERATOR POWER FLOW DATA ######
