@@ -18,7 +18,7 @@ model InstallingGridCal "Installing GridCal"
     <hr>
       <ol type=\"a\">
         <li>Open a command window/console and browse to the path where you want to create the <em>virtual environment</em>. </li>
-        <li>Install the <strong>virtualenv</strong> tool by using the following command:</li>
+        <li>Install the <strong>virtualenv</strong> tool by using the following command:
         <blockquote><pre>
 <strong>python</strong> -m <strong>pip install</strong> virtualenv
         </pre></blockquote>
@@ -38,6 +38,7 @@ Successfully installed distlib-0.3.9 filelock-3.16.1 platformdirs-4.3.6 virtuale
 
 C:\Users\Miguel\SMIB_Example>
         </pre></blockquote>
+        </li>
         <li>Type the following command where <font color=\"blue\"><code>&lt;&lt;env_name&gt;&gt;</code></font> should be replaced by the actual name you want to give to the <em>environment</em> (e.g., <font color=\"blue\"><code>openipsl_tutorial</code></font>).
         <blockquote><pre>
 <strong>python</strong> -m venv &lt;&lt;env_name&gt;&gt;
