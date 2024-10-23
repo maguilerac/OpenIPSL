@@ -221,7 +221,7 @@ def _write_single_pf(grid, pf, model_name, data_dirs, pf_num, export_pf_results,
 
     # Adding active power and reactive power to the buses
     pf_S_bus_results["P [MW]"] = np.real(pf.results.Sbus)
-    pf_S_bus_results["Q [MVAR]"] = np.imag(pf.results.Sbus)
+    pf_S_bus_results["Q [Mvar]"] = np.imag(pf.results.Sbus)
 
     # Adding the bus type
     pf_S_bus_results["Bus_Type"] = pf.results.bus_types
@@ -264,14 +264,14 @@ def _write_single_pf(grid, pf, model_name, data_dirs, pf_num, export_pf_results,
     df_gen_data["P [MW]"] = gen_P
     df_gen_data["Pmin [MW]"] = gen_P_min
     df_gen_data["Pmax [MW]"] = gen_P_max
-    df_gen_data["Qmin [MVAR]"] = gen_Q_min
-    df_gen_data["Qmax [MVAR]"] = gen_Q_max
+    df_gen_data["Qmin [Mvar]"] = gen_Q_min
+    df_gen_data["Qmax [Mvar]"] = gen_Q_max
     df_gen_data["Active"] = gen_active
 
     df_load_data = pd.DataFrame(columns = [], index = load_name)
     df_load_data["P [MW]"] = load_P
     df_load_data["Bus"] = load_bus
-    df_load_data["Q [MVAR]"] = load_Q
+    df_load_data["Q [Mvar]"] = load_Q
 
     gen_P = []
     gen_Q = []
@@ -317,10 +317,10 @@ def _write_single_pf(grid, pf, model_name, data_dirs, pf_num, export_pf_results,
         # ----------------------------------------------------------------------
 
         # Net reactive power at the corresponding bus
-        Q_net_bus = pf_S_bus_results.loc[gen_bus]["Q [MVAR]"]
+        Q_net_bus = pf_S_bus_results.loc[gen_bus]["Q [Mvar]"]
 
         # Sum of all reactive power of the loads connected to the generation bus (if any)
-        Q_load_sum = np.abs(df_load_data.loc[df_load_data["Bus"] == gen_bus]["Q [MVAR]"].sum())
+        Q_load_sum = np.abs(df_load_data.loc[df_load_data["Bus"] == gen_bus]["Q [Mvar]"].sum())
 
         # Generated reactive power at the bus
         Q_gen_bus = Q_net_bus + Q_load_sum
@@ -335,12 +335,12 @@ def _write_single_pf(grid, pf, model_name, data_dirs, pf_num, export_pf_results,
             #Q_machine = Q_gen_bus / n_gens
             #gen_Q.append(Q_machine)
             # Sum of the maximum and minimum reactive power limit of all the generators connected to the bus
-            Q_tot_max = df_gen_data.loc[df_gen_data["Bus"] == gen_bus]['Qmax [MVAR]'].sum()
-            Q_tot_min = df_gen_data.loc[df_gen_data["Bus"] == gen_bus]['Qmin [MVAR]'].sum()
+            Q_tot_max = df_gen_data.loc[df_gen_data["Bus"] == gen_bus]['Qmax [Mvar]'].sum()
+            Q_tot_min = df_gen_data.loc[df_gen_data["Bus"] == gen_bus]['Qmin [Mvar]'].sum()
 
             # Minimum and maximum ranges of the machine
-            Q_mach_min = df_gen_data.loc[gen]["Qmin [MVAR]"]
-            Q_mach_max = df_gen_data.loc[gen]["Qmax [MVAR]"]
+            Q_mach_min = df_gen_data.loc[gen]["Qmin [Mvar]"]
+            Q_mach_max = df_gen_data.loc[gen]["Qmax [Mvar]"]
 
             if Q_mach_min == Q_mach_max:
                 # No range to allocate more reactive power to the machine rather
@@ -400,10 +400,10 @@ def _write_single_pf(grid, pf, model_name, data_dirs, pf_num, export_pf_results,
         #### MACHINE POWER #####
         ########################
 
-        headers = ["P [MW]", "Q [MVAR]"]
+        headers = ["P [MW]", "Q [Mvar]"]
         df_machines = pd.DataFrame(index = gen_name, columns = headers)
         df_machines["P [MW]"] = gen_P
-        df_machines["Q [MVAR]"] = gen_Q
+        df_machines["Q [Mvar]"] = gen_Q
 
         # Exporting to `.csv`
         machine_results = os.path.join(pf_data_csv_dir, f"PF_machine_results_{extension_record}.csv")
@@ -422,12 +422,12 @@ def _write_single_pf(grid, pf, model_name, data_dirs, pf_num, export_pf_results,
         ####################################
 
         # Per bus
-        headers = ["P [MW]", "Q [MVAR]", "Bus_Type"]
+        headers = ["P [MW]", "Q [Mvar]", "Bus_Type"]
         df_bus = pd.DataFrame(index = grid.bus_names, columns = headers)
 
         # Bus results data frame
         df_bus["P [MW]"] = np.real(pf.results.Sbus)*grid.Sbase
-        df_bus["Q [MVAR]"] = np.imag(pf.results.Sbus)*grid.Sbase
+        df_bus["Q [Mvar]"] = np.imag(pf.results.Sbus)*grid.Sbase
         df_bus["Bus_Type"] = pf.results.bus_types
 
         # Exporting to `.csv`
