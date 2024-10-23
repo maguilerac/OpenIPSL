@@ -3,13 +3,12 @@ import pandas as pd
 import numpy as np
 import re
 
-from GridCal import __version__
-__VERSION = __version__.__GridCal_VERSION__
+import GridCalEngine.api as gce
 
 EPS = np.finfo(float).eps
 
 # Function to write single power flow
-def _write_single_pf(grid, pf, model_name, data_dirs, pf_num, export_pf_results, is_time_series, ts_name, openipsl_version):
+def _write_single_pf(grid, pf, model_name, data_dirs, pf_num, export_pf_results, is_time_series, ts_name):
     '''
     _WRITE_SINGLE_PF
 
@@ -28,7 +27,6 @@ def _write_single_pf(grid, pf, model_name, data_dirs, pf_num, export_pf_results,
     - `export_pf_results`: export power flow results as `.csv` files: one for buses, another for machines
     - `is_time_series`: flag that indicates whether the script is being called inside a time-series power flow loop. It only changes the name of the output file
     -  `ts_name`: name of the time-series
-    - `openipsl_version` (str): version of the OpenIPSL library on which the target model has been built. It defaults to `1.5.0`.
 
     OUTPUTS:
     None
@@ -101,14 +99,10 @@ def _write_single_pf(grid, pf, model_name, data_dirs, pf_num, export_pf_results,
     pf_result.write(f"end PF{extension_record};".format(num = pf_num))
     pf_result.close()
 
-    # Adjusting the units to the new format in the library
+    # Adjusting the units to the new format in the OpenIPSL library
     # just for power at loads and generators
-    if openipsl_version == '1.5.0':
-        adjust_units = ''
-        adjust_angle = 180/np.pi # converting angle to deg
-    else:
-        adjust_units = '1e06*'
-        adjust_angle = 1 # leaving angle in rad
+    adjust_units = '1e06*'
+    adjust_angle = 1 # leaving angle in rad
 
     #####################################
     ### WRITING LOAD POWER FLOW DATA ####
@@ -184,7 +178,7 @@ def _write_single_pf(grid, pf, model_name, data_dirs, pf_num, export_pf_results,
 
     # Getting indices of the branches which are a transformer in the grid object
     for n_branch, branch in enumerate(grid.get_branches()):
-        if str(branch.branch_type) == 'transformer':
+        if str(branch.device_type) == gce.DeviceType.Transformer2WDevice:
             br_trafos_index.append(n_branch)
             br_trafos_from.append(branch.bus_from)
             br_trafos_to.append(branch.bus_to)
@@ -196,27 +190,12 @@ def _write_single_pf(grid, pf, model_name, data_dirs, pf_num, export_pf_results,
     trafos_result.write(f"record PFTrafo{extension_record}\n")
     trafos_result.write(f"extends {model_name}.PFData.TrafoData.TrafoTemplate(\n\n")
 
-    if re.search(r"3.\d.\d", __VERSION) or __VERSION == '4.0.0':
-        # Writing tap results for old GridCal versions
-        # since `tap_module` has been renamed as `transformer_tap_module`
+    if br_trafos_index:
+        # Writing tap results
         for n_trafo, trafo in enumerate(pf.results.tap_module):
             trafos_result.write("// TRAFO: '{}'\n".format(br_trafos_name[n_trafo]))
             trafos_result.write("// From: '{}' - To: '{}'\n".format(br_trafos_from[n_trafo], br_trafos_to[n_trafo]))
             trafos_result.write("t1_trafo_{n_traf} = {t:.7f},\n".format(n_traf = n_trafo + 1, t = pf.results.tap_module[n_trafo]))
-            if n_trafo == len(br_trafos_index) - 1:
-                trafos_result.write("t2_trafo_{n_traf} = 1.0000000\n\n".format(n_traf = n_trafo + 1))
-            else:
-                trafos_result.write("t2_trafo_{n_traf} = 1.0000000,\n\n".format(n_traf = n_trafo + 1))
-
-        trafos_result.write(");\n")
-        trafos_result.write(f"end PFTrafo{extension_record};")
-        trafos_result.close()
-    elif re.search(r"4.\d(.\d)*", __VERSION):
-        # Writing tap results for the latest 4.0.0+ GridCal version
-        for n_trafo, trafo in enumerate(pf.results.transformer_tap_module):
-            trafos_result.write("// TRAFO: '{}'\n".format(br_trafos_name[n_trafo]))
-            trafos_result.write("// From: '{}' - To: '{}'\n".format(br_trafos_from[n_trafo], br_trafos_to[n_trafo]))
-            trafos_result.write("t1_trafo_{n_traf} = {t:.7f},\n".format(n_traf = n_trafo + 1, t = pf.results.transformer_tap_module[n_trafo]))
             if n_trafo == len(br_trafos_index) - 1:
                 trafos_result.write("t2_trafo_{n_traf} = 1.0000000\n\n".format(n_traf = n_trafo + 1))
             else:
@@ -240,15 +219,9 @@ def _write_single_pf(grid, pf, model_name, data_dirs, pf_num, export_pf_results,
     # Creating Pandas DataFrame with power flow results and bus type for each bus (power only)
     pf_S_bus_results = pd.DataFrame(columns = [], index = pf.results.bus_names)
 
-    # Adding active power to the buses
-    if re.search(r"3.\d.\d", __VERSION) or __VERSION == '4.0.0':
-        pf_S_bus_results["P [MW]"] = np.real(pf.results.Sbus * grid.Sbase)
-        # Adding reactive power to the buses
-        pf_S_bus_results["Q [MVAR]"] = np.imag(pf.results.Sbus * grid.Sbase)
-    elif re.search(r"4.\d(.\d)*", __VERSION):
-        # For version 4 of GridCal, power is already given in MW and MVar
-        pf_S_bus_results["P [MW]"] = np.real(pf.results.Sbus)
-        pf_S_bus_results["Q [MVAR]"] = np.imag(pf.results.Sbus)
+    # Adding active power and reactive power to the buses
+    pf_S_bus_results["P [MW]"] = np.real(pf.results.Sbus)
+    pf_S_bus_results["Q [MVAR]"] = np.imag(pf.results.Sbus)
 
     # Adding the bus type
     pf_S_bus_results["Bus_Type"] = pf.results.bus_types
@@ -462,7 +435,7 @@ def _write_single_pf(grid, pf, model_name, data_dirs, pf_num, export_pf_results,
         df_bus.to_csv(bus_power_results, index = True)
 
 
-def gridcal2rec(grid, pf, model_name, data_path = None, pf_num = 1, export_pf_results = False, is_time_series = False, ts_name = None, openipsl_version = '1.5.0'):
+def gridcal2rec(grid, pf, model_name, data_path = None, pf_num = 1, export_pf_results = False, is_time_series = False, ts_name = None):
     '''
     GRIDCAL2REC
 
@@ -480,7 +453,6 @@ def gridcal2rec(grid, pf, model_name, data_path = None, pf_num = 1, export_pf_re
     - `export_pf_results`: export power flow results as `.csv` files: one for buses, another for machines
     - `is_time_series`: flag that indicates whether the script is being called inside a time-series power flow loop. It only changes the name of the output file
     -  `ts_name`: name of the time-series
-    - `openipsl_version` (str): version of the OpenIPSL library on which the target model has been built. It defaults to `1.5.0`.
 
     OUTPUTS:
     Writes a power flow record compatible with OpenIPSL
@@ -511,4 +483,4 @@ def gridcal2rec(grid, pf, model_name, data_path = None, pf_num = 1, export_pf_re
     'trafos' : trafos_data_dir,
     'machines' :  machines_data_dir,
     'PFData' :  pf_data_dir}
-    _write_single_pf(grid, pf, model_name, data_dirs, pf_num, export_pf_results, is_time_series, ts_name, openipsl_version)
+    _write_single_pf(grid, pf, model_name, data_dirs, pf_num, export_pf_results, is_time_series, ts_name)
