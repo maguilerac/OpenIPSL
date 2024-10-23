@@ -2,11 +2,11 @@ from pf2rec import *
 
 import argparse
 import os
+import re
 
 parser = argparse.ArgumentParser()
 
-parser.add_argument("--model", help = "Name of the package containing the target OpenIPSL model. Defaults to `SMIB`")
-parser.add_argument("--version", help = "OpenIPSL version for which the model has been created. Defaults to '1.5.0'")
+parser.add_argument("--model", help = "Name of the package containing the target OpenIPSL model. Defaults to 'SMIB'")
 
 args = parser.parse_args()
 
@@ -17,24 +17,33 @@ if __name__ == '__main__':
     else:
         _model = 'SMIB'
 
-    if args.version:
-        _version = args.version
-        if _version not in ['1.5.0', '2.0.0']:
-            raise ValueError("OpenIPSL version could not be identified")
-    else:
-        _version = '1.5.0'
+    # Absolute path to the '.mo' file of the model (total model)
+    data_path = os.path.abspath(os.path.join(os.getcwd(), "models", _model))
 
-    if _version == '1.5.0':
-        _model_lib = '_old'
-    elif _version == '2.0.0':
-        _model_lib = '_new'
+    path_mo_file = os.path.abspath(os.path.join(data_path, f"{_model}Total.mo"))
 
-    # Absolute path to the `.mo` file of the model
-    data_path = os.path.abspath(os.path.join(os.getcwd(), "models", _model_lib, _model))
+    # Remove Modelica code lines from the '.mo' file that alter the expected input for
+    #   pf2rec functions (the GenerationUnits package section of Modelica code should 
+    #   be excluded)
+    includeCodeLine = False # True if line of code should be included
+    new_lines = list()
+    with open(path_mo_file, "r") as mo_file:
+        lines = mo_file.readlines()
 
-    path_mo_file = os.path.abspath(os.path.join(data_path, f"{_model}_Base_Case.mo"))
+        for l in lines:
+            if re.search("^package\sSMIB", l):
+                includeCodeLine = True
+            if re.search("^\s+package\sGenerationUnits", l):
+                includeCodeLine = False
+            if re.search("^\s+package\sBaseNetwork", l):
+                includeCodeLine = True
+            if includeCodeLine:
+                new_lines.append(l);
+
+    with open(path_mo_file, "w") as mo_file:
+        for l in new_lines:
+            mo_file.write("{}".format(l))
 
     create_pf_records(_model,
                       path_mo_file,
-                      data_path,
-                     openipsl_version = _version)
+                      data_path)

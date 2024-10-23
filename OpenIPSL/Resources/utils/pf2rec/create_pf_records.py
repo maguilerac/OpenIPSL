@@ -1,7 +1,7 @@
 from .generate_component_list import *
 import os
 
-def create_pf_records(model_name, model_mo_path, data_path = None, openipsl_version = '1.5.0'):
+def create_pf_records(model_name, model_mo_path, data_path = None):
 
     '''
     create_pf_records
@@ -14,7 +14,6 @@ def create_pf_records(model_name, model_mo_path, data_path = None, openipsl_vers
     This is the name of the main model in Modelica.
     - model_mo_path: absolute path to the folder where the `.mo` file of the OpenIPSL model is located.
     - data_path: absolute path to the folder where the records (and the PF data) will be stored.
-    - openipsl_version (string)
 
     OUTPUTS:
     - void function. Writes `.mo` files inside the data_path
@@ -117,16 +116,10 @@ def create_pf_records(model_name, model_mo_path, data_path = None, openipsl_vers
     ################# CREATING TEMPLATES #################
     ######################################################
 
-    if openipsl_version == '1.5.0':
-        type_p = 'OpenIPSL.Types.ActivePowerMega'
-        type_q = 'OpenIPSL.Types.ReactivePowerMega'
-        type_voltage_pu = 'Modelica.SIunits.PerUnit'
-        type_angle = 'Modelica.SIunits.Conversions.NonSIunits.Angle_deg' # angle in deg
-    else:
-        type_p = 'OpenIPSL.Types.ActivePower'
-        type_q = 'OpenIPSL.Types.ReactivePower'
-        type_voltage_pu = 'OpenIPSL.Types.PerUnit'
-        type_angle = 'OpenIPSL.Types.Angle' # angle in radians
+    type_p = 'OpenIPSL.Types.ActivePower'
+    type_q = 'OpenIPSL.Types.ReactivePower'
+    type_voltage_pu = 'OpenIPSL.Types.PerUnit'
+    type_angle = 'OpenIPSL.Types.Angle' # angle in radians
 
     ###########################
     ####### BUS TEMPLATE ######
