@@ -89,7 +89,6 @@ def generate_component_list(model_mo_path):
         for pattern in regex_patterns:
             gen_regex = re.compile(pattern)
             gens.extend(gen_regex.findall(model_mo_full_text))
-        print(gens) # remove
 
     # If at this point there is nothing in `gens`, an error is raised
     if len(gens) == 0:

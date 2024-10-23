@@ -31,11 +31,11 @@ if __name__ == '__main__':
         lines = mo_file.readlines()
 
         for l in lines:
-            if re.search("^package\sSMIB", l):
+            if re.search(r'^package\sSMIB', l):
                 includeCodeLine = True
-            if re.search("^\s+package\sGenerationUnits", l):
+            if re.search(r'^\s+package\sGenerationUnits', l):
                 includeCodeLine = False
-            if re.search("^\s+package\sBaseNetwork", l):
+            if re.search(r'^\s+package\sBaseNetwork', l):
                 includeCodeLine = True
             if includeCodeLine:
                 new_lines.append(l);
