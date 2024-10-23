@@ -5,95 +5,61 @@ model InstallingGridCal "Installing GridCal"
   <h5>Installing GridCal</h5>
   <p>At this point, we have a record structure to keep the power flow solutions linked to the SMIB power system elements. It is our next task to populate the records and for that to be done we need a python script that runs a library called <em>GridCal</em> which computes the power flow. To properly install <em>GridCal</em> please follow the steps listed below: </p>
   <ol type=\"1\">
-    <li>Install <strong>Miniconda 3 version 4.11.0 with python 3.9</strong>. Go to the <a href=\"https://repo.anaconda.com/miniconda\">Miniconda repository page</a> and locate the right version (i.e., <strong>Miniconda3-py39_4.11.0-*</strong>). Download the installer depending on the platform of your choice and install it. </li>
-    <li>Create a new Miniconda <em>environment</em> that will handle the GridCal Installation.
+    <li>Download <a href=\"https://www.python.org/downloads\">python</a> and install it. Note that GridCal developpers encourage to install the latest version of python <a href=\"https://github.com/SanPen/GridCal?tab=readme-ov-file#package-installation\">here</a>.
+    <hr>
+    <p>&#x1F4CC; To install python for all users you must first run the installer as administrator. Then, you need to choose the <strong>Customize installation</strong> option. Click the <strong>Next</strong> button, which will open the <strong>Advanced Options</strong> window. Finally, tick the <em>Install Python 3.x for all users</em> checkbox before clicking the <strong>Install</strong> button. </p>
+    <p>&#x1F4CC; Choosing the <strong>Customize installation</strong> option will also allow you to customize the install location. </p>
+    <p>&#x1F4CC; If you want python to be recognized as a command in every console/command window you need to add it to <strong>PATH</strong>. This can be done by clicking the <em>Add python.exe to PATH</em> checkbox from the initial window. </p>
+    <hr>
+    </li>
+    <li>(Optional) Create a new python <em>virtual environment</em> to encapsulate the GridCal Installation and its dependencies.
+    <hr>
+    <p>&#x1F4CC; <em>Virtual environments</em> allow you to separate particular experimental setups from the generic python installation. This way, you can install GridCal and its dependencies on a virtual environment, which could later be removed without affecting your main python installation. </p>
+    <hr>
       <ol type=\"a\">
-        <li>Open an Anaconda Prompt window and browse to the path where you want to create the <em>environment</em>. </li>
-        <li>Type the following command where <font color=\"blue\"><code>&lt;&lt;env_name&gt;&gt;</code></font> should be replaced by the actual name you want to give to the <em>environment</em>.
+        <li>Open a command window/console and browse to the path where you want to create the <em>virtual environment</em>. </li>
+        <li>Install the <strong>virtualenv</strong> tool by using the following command:</li>
         <blockquote><pre>
-<strong>conda create</strong> -n &lt;&lt;env_name&gt;&gt; python=3.9
+<strong>python</strong> -m <strong>pip install</strong> virtualenv
         </pre></blockquote>
-        </li>
-        <li>Accept any python packages required to be installed by typing <strong>Y</strong> when prompted:
-          <blockquote><pre>
-## Package Plan ##
+        <blockquote><pre>
+Example:
+C:\Users\Miguel\SMIB_Example><strong>python</strong> -m <strong>pip</strong> list
+Package Version
+------- -------
+pip     24.2
 
-  environment location: C:\...\envs\openipsl_tutorial
+C:\Users\Miguel\SMIB_Example><strong>python</strong> -m <strong>pip install</strong> virtualenv
+Collecting virtualenv
+  Downloading virtualenv-20.27.0-py3-none-any.whl.metadata (4.5 kB)
+...
+Installing collected packages: distlib, platformdirs, filelock, virtualenv
+Successfully installed distlib-0.3.9 filelock-3.16.1 platformdirs-4.3.6 virtualenv-20.27.0
 
-  added / updated specs:
-    - python=3.9
-
-
-The following packages will be downloaded:
-
-    package                    |            build
-    ---------------------------|-----------------
-    python-3.9.20              |       h8205438_1        19.7 MB
-    ------------------------------------------------------------
-                                           Total:        19.7 MB
-
-The following NEW packages will be INSTALLED:
-
-  ca-certificates    pkgs/main/win-64::ca-certificates-2024.9.24-haa95532_0
-  openssl            pkgs/main/win-64::openssl-3.0.15-h827c3e9_0
-  pip                pkgs/main/win-64::pip-24.2-py39haa95532_0
-  python             pkgs/main/win-64::python-3.9.20-h8205438_1
-  setuptools         pkgs/main/win-64::setuptools-75.1.0-py39haa95532_0
-  sqlite             pkgs/main/win-64::sqlite-3.45.3-h2bbff1b_0
-  tzdata             pkgs/main/noarch::tzdata-2024b-h04d1e81_0
-  vc                 pkgs/main/win-64::vc-14.40-h2eaa2aa_1
-  vs2015_runtime     pkgs/main/win-64::vs2015_runtime-14.40.33807-h98bb1dd_1
-  wheel              pkgs/main/win-64::wheel-0.44.0-py39haa95532_0
-
-Proceed ([y]/n)?
-
-Downloading and Extracting Packages
-python-3.9.20        | 19.7 MB   | ############################################################################ | 100%
-Preparing transaction: done
-Verifying transaction: done
-Executing transaction: done
-#
-# To activate this environment, use
-#
-#     $ conda activate openipsl_tutorial
-#
-# To deactivate an active environment, use
-#
-#     $ conda deactivate
-          </pre></blockquote>
+C:\Users\Miguel\SMIB_Example>
+        </pre></blockquote>
+        <li>Type the following command where <font color=\"blue\"><code>&lt;&lt;env_name&gt;&gt;</code></font> should be replaced by the actual name you want to give to the <em>environment</em> (e.g., <font color=\"blue\"><code>openipsl_tutorial</code></font>).
+        <blockquote><pre>
+<strong>python</strong> -m venv &lt;&lt;env_name&gt;&gt;
+        </pre></blockquote>
+    <hr>
+    <p>&#x1F4CC; A folder with the same name as your virtual environment (i.e., <font color=\"blue\"><code>&lt;&lt;env_name&gt;&gt;</code></font>) will be created in your current directory. </p>
+    <hr>
         </li>
       </ol>
     </li>
-    <li>Activate the environment. Type the command shown below and do not forget to replace the <font color=\"blue\"><code>&lt;&lt;env_name&gt;&gt;</code></font> expression by the actual name you gave to the environment in step 2.b (e.g., <em>openipsl_tutorial</em>).
+    <li>(Optional) Activate the environment by calling the <strong>activate</strong> script located under .\\<font color=\"blue\"><code>&lt;&lt;env_name&gt;&gt;</code></font>\\Scripts\\:
     <blockquote><pre>
-<strong>conda activate</strong> &lt;&lt;env_name&gt;&gt;
+C:\Users\Miguel\SMIB_Example>.\openipsl_tutorial\Scripts\<strong>activate</strong>
+
+<strong>(openipsl_tutorial)</strong> C:\Users\Miguel\SMIB_Example>
     </pre></blockquote>
     <hr>
-    <p>&#x1F4CC; Please notice that whenever you want to use your environment again and your environment session is no longer open, you first need to open an Anaconda prompt, then locate the path where the environment is and finally type the <font color=\"blue\"><code>conda activate</code></font> command as indicated above. An environment session is typically finalized by typing the <font color=\"blue\"><code>conda deactivate</code></font> command. </p>
+    <p>&#x1F4CC; Please notice that whenever you want to use your environment again and your environment session is no longer open, you first need to open a command prompt/console, then locate the path where the environment is and finally call the <font color=\"blue\"><code>activate</code></font> script as indicated above. An environment session is typically finalized by calling the <font color=\"blue\"><code>deactivate</code></font> script. </p>
     <hr>
-    <p>After successfully activating a miniconda environment you will see the name of the environment enclosed in parenthesis as shown below</p>
+    <p>After successfully activating a virtual environment you will see the name of the environment enclosed in parenthesis as shown below</p>
     <blockquote><pre>
-<strong>(openipsl_tutorial)</strong> C:\\Users\\Miguel>
-    </pre></blockquote>
-    </li>
-    <li>Upgrade <code>pip</code> (optional).
-    <p>On Windows:</p>
-    <blockquote><pre>
-<strong>python</strong> -m <strong>pip install</strong> -U pip
-    </pre></blockquote>
-    <p>On Linux/macOS:</p>
-    <blockquote><pre>
-<strong>pip install</strong> -U pip
-    </pre></blockquote>
-    <p>You should get something similar to</p>
-    <blockquote><pre>
-C:\\Users\\Miguel><strong>conda activate</strong> openipsl_tutorial
-
-(openipsl_tutorial) C:\\Users\\Miguel><strong>python</strong> -m <strong>pip install</strong> -U pip
-Requirement already satisfied: pip in c:\users\miguel\miniconda3\envs\testa\lib\site-packages (24.2)
-
-...
-Succesfully installed pip-22.3.1
+<strong>(openipsl_tutorial)</strong> C:\Users\Miguel\SMIB_Example>
     </pre></blockquote>
     </li>
     <li>Clean <code>pip</code> cache.
@@ -101,126 +67,63 @@ Succesfully installed pip-22.3.1
 <strong>python</strong> -m <strong>pip cache purge</strong>
     </pre></blockquote>
     </li>
-    <li>Go to the <a href=\"https://github.com/SanPen/GridCal\">GridCal github page</a> and then click the <a href=\"https://github.com/SanPen/GridCal/releases\">Releases</a> link. Download the <em>source code zip file</em> of release v4.5.1 (hash <em>0fdfbb3</em>).
-    <p>You can alternatively clone the <em>release</em>, if you feel familiar with <em>git</em>. To clone the release use the following git commands:</p>
+    <li>Install the <strong>gridcal</strong> python package as follows:
     <blockquote><pre>
-<strong>git clone</strong> https://github.com/SanPen/GridCal my_gridcal
-<strong>cd</strong> my_gridcal
-<strong>git reset</strong> --hard 0fdfbb3
-    </pre></blockquote>
-    <p>In case you decided to download the zip file manually, unzip it to a convenient location.</p>
-    </li>
-    <li>Go back to the Anaconda Prompt window and navigate to the path where you have your local GridCal repo clone or unzipped files. If you use the <code>dir</code> command you should be able to see the following list of files:
-    <blockquote><pre>
-(openipsl_tutorial) C:\\git\\my_gridcal><strong>cd</strong> GridCal-4.5.1
-
-(openipsl_tutorial) C:\\git\\my_gridcal><strong>dir</strong>
- Volume in drive C has no label.
- Volume Serial Number is ECE3-A3D0
-
- Directory of C:\\git\\my_gridcal
-
-10/19/2024  04:50 PM    DIR          .
-10/19/2024  04:50 PM    DIR          ..
-10/19/2024  04:50 PM               281 .gitignore
-10/19/2024  04:43 PM               983 .gitlab-ci.yml
-10/19/2024  04:50 PM    DIR          .idea
-10/19/2024  04:50 PM                27 .readthedocs.yml
-10/19/2024  04:50 PM               330 .travis.yml
-10/19/2024  04:43 PM               156 CONTRIBUTING.md
-10/19/2024  04:50 PM    DIR          doc
-10/19/2024  04:43 PM    DIR          Grids_and_profiles
-10/19/2024  04:43 PM             7,506 LICENSE.md
-10/19/2024  04:50 PM    DIR          pics
-10/19/2024  04:43 PM                53 pytest.ini
-10/19/2024  04:50 PM             6,143 README.md
-10/19/2024  04:50 PM                63 requirements-dev.txt
-10/19/2024  04:50 PM               331 requirements.txt
-10/19/2024  04:50 PM             1,187 requirements_nose.txt
-10/19/2024  04:50 PM               340 requirements_venv.txt
-10/19/2024  04:50 PM            10,224 setup.py
-10/19/2024  04:50 PM    DIR          src
-10/19/2024  04:43 PM               127 tox.ini
-              14 File(s)         27,751 bytes
-               7 Dir(s)  143,334,338,560 bytes free
-
-(openipsl_tutorial) C:\\git\\my_gridcal>
-    </pre></blockquote>
-    </li>
-    <li>Use the text editor of your preference to modify the first line of the <em>requirements.txt</em> file located in the GridCal source folder as follows:
-    <blockquote><pre>
-numpy>=1.14.0,<strong><1.20.0</strong>
-scipy>=1.0.0
-networkx>=2.1
-pandas>=1.1
+(openipsl_tutorial) C:\Users\Miguel\SMIB_Example><strong>python</strong> -m <strong>pip install</strong> gridcal
+Collecting gridcal
+  Using cached GridCal-5.1.52.tar.gz (1.0 MB)
+  Installing build dependencies ... done
+  Getting requirements to build wheel ... done
+  Preparing metadata (pyproject.toml) ... done
+Collecting setuptools>=41.0.1 (from gridcal)
+  Using cached setuptools-75.2.0-py3-none-any.whl.metadata (6.9 kB)
+Collecting wheel>=0.37.2 (from gridcal)
 ...
-pyproj
-folium
-    </pre></blockquote>
-    </li>
-    <li>Install the GridCal python requirements by using the <code>cd</code> command:
-    <blockquote><pre>
-(openipsl_tutorial) C:\\git\\my_gridcal><strong>python</strong> -m <strong>pip install</strong> -r requirements.txt
+Successfully built gridcal GridCalEngine grapheme
+Installing collected packages: xlwt, wcwidth, pywin32, pytz, py4j, pure-eval, grapheme, xlrd, wrapt, wheel, websockets, urllib3, tzdata, traitlets, tornado, threadpoolctl, six, shiboken6, setuptools, pyzmq, pyqtdarktheme, pyparsing, pygments, psutil, prompt-toolkit, pluggy, platformdirs, pillow, parso, packaging, numpy, networkx, nest-asyncio, llvmlite, kiwisolver, joblib, iniconfig, idna, html5lib-modern, geographiclib, future, fonttools, executing, et-xmlfile, dill, decorator, debugpy, darkdetect, cycler, colorama, cloudpickle, charset-normalizer, chardet, certifi, about-time, tqdm, scipy, requests, rdflib, qtpy, python-dateutil, pytest, PySide6-Essentials, pyproj, pyarrow, openpyxl, opencv-python, numba, nptyping, matplotlib-inline, jupyter-core, jedi, highspy, h5py, geopy, Deprecated, contourpy, comm, cma, autograd, asttokens, alive-progress, stack-data, scikit-learn, PySide6-Addons, pandas, matplotlib, jupyter-client, hyperopt, windpowerlib, PySide6, pymoo, pvlib, ipython, ipykernel, qtconsole, GridCalEngine, gridcal
+Successfully installed Deprecated-1.2.14 GridCalEngine-5.1.52 PySide6-6.6.3.1 PySide6-Addons-6.6.3.1 PySide6-Essentials-6.6.3.1 about-time-4.2.1 alive-progress-3.1.5 asttokens-2.4.1 autograd-1.7.0 certifi-2024.8.30 chardet-5.2.0 charset-normalizer-3.4.0 cloudpickle-3.1.0 cma-3.2.2 colorama-0.4.6 comm-0.2.2 contourpy-1.3.0 cycler-0.12.1 darkdetect-0.8.0 debugpy-1.8.7 decorator-5.1.1 dill-0.3.9 et-xmlfile-1.1.0 executing-2.1.0 fonttools-4.54.1 future-1.0.0 geographiclib-2.0 geopy-2.4.1 grapheme-0.6.0 gridcal-5.1.52 h5py-3.12.1 highspy-1.8.0 html5lib-modern-1.2 hyperopt-0.2.7 idna-3.10 iniconfig-2.0.0 ipykernel-6.29.5 ipython-8.28.0 jedi-0.19.1 joblib-1.4.2 jupyter-client-8.6.3 jupyter-core-5.7.2 kiwisolver-1.4.7 llvmlite-0.43.0 matplotlib-3.9.2 matplotlib-inline-0.1.7 nest-asyncio-1.6.0 networkx-3.4.2 nptyping-2.5.0 numba-0.60.0 numpy-1.26.4 opencv-python-4.10.0.84 openpyxl-3.1.5 packaging-24.1 pandas-2.2.3 parso-0.8.4 pillow-11.0.0 platformdirs-4.3.6 pluggy-1.5.0 prompt-toolkit-3.0.48 psutil-6.1.0 pure-eval-0.2.3 pvlib-0.11.1 py4j-0.10.9.7 pyarrow-17.0.0 pygments-2.18.0 pymoo-0.6.1.3 pyparsing-3.2.0 pyproj-3.7.0 pyqtdarktheme-0.1.7 pytest-8.3.3 python-dateutil-2.9.0.post0 pytz-2024.2 pywin32-308 pyzmq-26.2.0 qtconsole-5.6.0 qtpy-2.4.1 rdflib-7.1.0 requests-2.32.3 scikit-learn-1.5.2 scipy-1.14.1 setuptools-75.2.0 shiboken6-6.6.3.1 six-1.16.0 stack-data-0.6.3 threadpoolctl-3.5.0 tornado-6.4.1 tqdm-4.66.5 traitlets-5.14.3 tzdata-2024.2 urllib3-2.2.3 wcwidth-0.2.13 websockets-13.1 wheel-0.44.0 windpowerlib-0.2.2 wrapt-1.16.0 xlrd-2.0.1 xlwt-1.3.0
 
-Collecting numpy<1.20.0,>=1.14.0 (from -r requirements.txt (line 1))
-  Downloading numpy-1.19.5-cp39-cp39-win_amd64.whl.metadata (2.0 kB)
-Collecting scipy>=1.0.0 (from -r requirements.txt (line 2))
-  Downloading scipy-1.13.1-cp39-cp39-win_amd64.whl.metadata (60 kB)
-  ...
-Installing collected packages: xlwt, wcwidth, pywin32, pytz, pure-eval, POAP, nose, zipp, xyzservices, xlrd, urllib3, typing-extensions, traitlets, tornado, tomli, threadpoolctl, six, shiboken2, pyzmq, pyparsing, pygments, psutil, protobuf, prompt-toolkit, pluggy, platformdirs, pillow, parso, packaging, numpy, networkx, nest-asyncio, MarkupSafe, llvmlite, kiwisolver, joblib, iniconfig, idna, geographiclib, fonttools, executing, exceptiongroup, et-xmlfile, dill, decorator, debugpy, Cython, cycler, colorama, charset-normalizer, chardet, certifi, absl-py, scipy, requests, qtpy, python-dateutil, pytest, PySide2, pyproj, ortools, openpyxl, numba, matplotlib-inline, jupyter-core, jinja2, jedi, importlib-metadata, h5py, geopy, contourpy, comm, asttokens, stack-data, scikit-learn, pyDOE2, pyDOE, pandas, matplotlib, jupyter-client, branca, smopy, pySOT, ipython, folium, ipykernel, qtconsole
-Successfully installed Cython-3.0.11 MarkupSafe-3.0.2 POAP-0.1.26 PySide2-5.15.2.1 absl-py-2.1.0 asttokens-2.4.1 branca-0.8.0 certifi-2024.8.30 chardet-5.2.0 charset-normalizer-3.4.0 colorama-0.4.6 comm-0.2.2 contourpy-1.1.1 cycler-0.12.1 debugpy-1.8.7 decorator-5.1.1 dill-0.3.9 et-xmlfile-1.1.0 exceptiongroup-1.2.2 executing-2.1.0 folium-0.17.0 fonttools-4.54.1 geographiclib-2.0 geopy-2.4.1 h5py-3.12.1 idna-3.10 importlib-metadata-8.5.0 iniconfig-2.0.0 ipykernel-6.29.5 ipython-8.18.1 jedi-0.19.1 jinja2-3.1.4 joblib-1.4.2 jupyter-client-8.6.3 jupyter-core-5.7.2 kiwisolver-1.4.7 llvmlite-0.39.1 matplotlib-3.6.3 matplotlib-inline-0.1.7 nest-asyncio-1.6.0 networkx-3.2.1 nose-1.3.7 numba-0.56.4 numpy-1.19.5 openpyxl-3.1.5 ortools-9.7.2996 packaging-24.1 pandas-1.4.4 parso-0.8.4 pillow-11.0.0 platformdirs-4.3.6 pluggy-1.5.0 prompt-toolkit-3.0.48 protobuf-5.28.2 psutil-6.1.0 pure-eval-0.2.3 pyDOE-0.3.8 pyDOE2-1.3.0 pySOT-0.3.3 pygments-2.18.0 pyparsing-3.2.0 pyproj-3.6.1 pytest-8.3.3 python-dateutil-2.9.0.post0 pytz-2024.2 pywin32-308 pyzmq-26.2.0 qtconsole-5.6.0 qtpy-2.4.1 requests-2.32.3 scikit-learn-1.5.2 scipy-1.10.1 shiboken2-5.15.2.1 six-1.16.0 smopy-0.0.8 stack-data-0.6.3 threadpoolctl-3.5.0 tomli-2.0.2 tornado-6.4.1 traitlets-5.14.3 typing-extensions-4.12.2 urllib3-2.2.3 wcwidth-0.2.13 xlrd-2.0.1 xlwt-1.3.0 xyzservices-2024.9.0 zipp-3.20.2
-
-(openipsl_tutorial) C:\\git\\my_gridcal>
-    </pre></blockquote>
-    <hr>
-    <p>&#x1F4CC; There are a bunch of packages required to be installed and it can take a while to complete it.</p>
-    <hr>
-    </li>
-    <li>Navigate to the <font color=\"blue\"><code>src</code></font> folder by using the <code>cd</code> command:
-    <blockquote><pre>
-<strong>cd</strong> src
+(openipsl_tutorial) C:\Users\Miguel\SMIB_Example>
     </pre></blockquote>
     </li>
-    <li>( <strong>Important</strong>) <em>Make sure your conda environment is activated</em>. Execute the following command:
+    <li>Verify that the python packages were installed correctly, especially <em>GridCal v5.1.52 or newer</em>:
     <blockquote><pre>
-<strong>python</strong> -m <strong>pip install</strong> .
-    </pre></blockquote>
-    </li>
-    <li>Verify that the python packages were installed correctly, especially <em>numpy v1.19.5</em> and <em>GridCal v4.5.1</em>:
-    <blockquote><pre>
-(openipsl_tutorial) C:\\git\\my_gridcal><strong>python</strong> -m <strong>pip list</strong>
+(openipsl_tutorial) C:\\Users\\Miguel\\SMIB_Example><strong>python</strong> -m <strong>pip list</strong>
 Package            Version
 ------------------ -----------
-absl-py            2.1.0
+about-time         4.2.1
+alive-progress     3.1.5
 asttokens          2.4.1
-branca             0.8.0
 ...
-GridCal            4.5.1
+grapheme           0.6.0
+GridCal            5.1.52
+GridCalEngine      5.1.52
 ...
-ipython            8.18.1
+ipykernel          6.29.5
+ipython            8.28.0
 ...
 jupyter_core       5.7.2
 ...
-matplotlib         3.6.3
+matplotlib         3.9.2
 matplotlib-inline  0.1.7
 nest-asyncio       1.6.0
-networkx           3.2.1
+networkx           3.4.2
 ...
-numpy              1.19.5
+numpy              1.26.4
 openpyxl           3.1.5
 ...
-pandas             1.4.4
+pandas             2.2.3
 ...
 pywin32            308
 pyzmq              26.2.0
 qtconsole          5.6.0
 QtPy               2.4.1
 ...
-scipy              1.10.1
-setuptools         75.1.0
+scipy              1.14.1
+setuptools         75.2.0
 ...
-xyzservices        2024.9.0
-zipp               3.20.2
+xlrd               2.0.1
+xlwt               1.3.0
     </pre></blockquote>
     <hr>
     <p>&#x1F4CC; Remember that GridCal has only been installed in the current environment. Therefore, whenever you use a script that requires this library the environment should be activated.</p>
@@ -228,15 +131,13 @@ zipp               3.20.2
     </li>
     <li>Test your installation running this python command:
     <blockquote><pre>
-<strong>from</strong> GridCal.Engine <strong>import</strong> *
+<strong>import</strong> GridCalEngine.api as gce
     </pre></blockquote>
     <blockquote><pre>
-(openipsl_tutorial) C:\\git\\my_gridcal><strong>python</strong>
-Python 3.9.20 (main, Oct  3 2024, 07:38:01) [MSC v.1929 64 bit (AMD64)] on win32
+(openipsl_tutorial) C:\\Users\\Miguel\\SMIB_Example><strong>python</strong>
+Python 3.12.7 (tags/v3.12.7:0b05ead, Oct  1 2024, 03:06:41) [MSC v.1941 64 bit (AMD64)] on win32
 Type \"help\", \"copyright\", \"credits\" or \"license\" for more information.
->>> from GridCal.Engine import *
-Bentayga is not available
-Newton native unavailable
+>>> import GridCalEngine.api as gce
 >>>
     </pre></blockquote>
     <p>As shown above you should not get any errors.</p>
@@ -247,7 +148,7 @@ Newton native unavailable
     </pre></blockquote>
     <p>You can deactivate your environment at any time when you no longer require GridCal by using the following command:</p>
     <blockquote><pre>
-<strong>conda deactivate</strong>
+.\\<font color=\"blue\"><code>&lt;&lt;env_name&gt;&gt;</code></font>\\Scripts\\<strong>deactivate</strong>
     </pre></blockquote>
         </li>
   </ol>
