@@ -8,12 +8,15 @@ model PFRecordCreation "Creating the PF Structure"
     <li>Create a directory called <font color=\"blue\"><code>SMIB_Example</code></font> at the same level where the <font color=\"blue\"><code>SMIB</code></font> folder is located. </li>
     <li>Create a directory called <font color=\"blue\"><code>models</code></font> below your new <font color=\"blue\"><code>SMIB_Example</code></font> folder. </li>
     <li>Move the <font color=\"blue\"><code>SMIB</code></font> folder below the previously added <font color=\"blue\"><code>models</code></font> folder. </li>
-    <li>Copy the <font color=\"blue\"><code>pf2rec</code></font> folder from the downloaded <font color=\"blue\"><code>SMIB_Tutorial</code></font> repository to the <font color=\"blue\"><code>SMIB_Example</code></font> folder. The tree below shows how your folder structure should look like:
+    <li>Copy the <font color=\"blue\"><code>pf2rec</code></font> folder from <a href=\"modelica://OpenIPSL/Resources/utils\">Resources</a> to the <font color=\"blue\"><code>SMIB_Example</code></font> folder. </li>
+    <li>Move the <font color=\"blue\"><code>create_records.py</code></font> and <font color=\"blue\"><code>run_pf.py</code></font> python files one level up (i.e., to the <font color=\"blue\"><code>SMIB_Example</code></font> folder). The tree below shows how your folder structure should look like:
     <blockquote><pre>
 C:\\Users\\...>tree /f /a SMIB_Example
 Folder PATH listing
 Volume serial number is ...
 C:\\USERS\\...\\SMIB_Example
+|   create_records.py
+|   run_pf.py
 +---models
 |   \\---SMIB
 |       |   ...
@@ -24,61 +27,6 @@ C:\\USERS\\...\\SMIB_Example
     |   gridcal2rec.py
     |   __init__.py
     |   ...
-    </pre></blockquote>
-    </li>
-    <li>In the same location where you have your <font color=\"blue\"><code>models</code></font> and <font color=\"blue\"><code>pf2rec</code></font> folders (i.e., <font color=\"blue\"><code>SMIB_Example</code></font> directory), create a new python file called <font color=\"blue\"><code>create_records.py</code></font>. Copy and paste the following code in the file. <em>Be careful with indentation!</em>
-    <blockquote><pre>
-<strong>from</strong> pf2rec <strong>import</strong> *
-
-<strong>import</strong> argparse
-<strong>import</strong> os
-<strong>import</strong> re
-
-parser = argparse.ArgumentParser()
-
-parser.add_argument(<em>\"--model\"</em>, help = <em>\"Name of the package containing the target OpenIPSL model. Defaults to 'SMIB'\"</em>)
-
-args = parser.parse_args()
-
-<strong>if</strong> __name__ == <em>'__main__'</em>:
-
-    <strong>if</strong> args.model:
-        _model = args.model
-    <strong>else</strong>:
-        _model = <em>'SMIB'</em>
-
-    <em># Absolute path to the '.mo' file of the model (total model)</em>
-    data_path = os.path.abspath(os.path.join(os.getcwd(), <em>\"models\"</em>, _model))
-
-    path_mo_file = os.path.abspath(os.path.join(data_path, <em>f\"</em>{_model}<em>Total.mo\"</em>))
-
-    <em># Remove Modelica code lines from the '.mo' file that alter the expected input for</em>
-    <em>#   pf2rec functions (the GenerationUnits package section of Modelica code should </em>
-    <em>#   be excluded)</em>
-    includeCodeLine = False <em># True if line of code should be included</em>
-    new_lines = list()
-    <strong>with</strong> open(path_mo_file, <em>\"r\"</em>) <strong>as</strong> mo_file:
-        lines = mo_file.readlines()
-
-        <strong>for</strong> l <strong>in</strong> lines:
-            <strong>if</strong> re.search(<em>\"^package\\sSMIB\"</em>, l):
-                includeCodeLine = True
-            <strong>if</strong> re.search(<em>\"^\\s+package\\sGenerationUnits\"</em>, l):
-                includeCodeLine = False
-            <strong>if</strong> re.search(<em>\"^\\s+package\\sBaseNetwork\"</em>, l):
-                includeCodeLine = True
-            <strong>if</strong> includeCodeLine:
-                new_lines.append(l);
-
-    <strong>with</strong> open(path_mo_file, <em>\"w\"</em>) <strong>as</strong> mo_file:
-        <strong>for</strong> l <strong>in</strong> new_lines:
-            mo_file.write(<em>\"{}\"</em>.format(l))
-
-    create_pf_records(_model,
-                      path_mo_file,
-                      data_path,
-                      openipsl_version = <em>'3.1.0-dev'</em>)
-
     </pre></blockquote>
     </li>
     <li>Reload your model or run Dymola, depending on what you did at the end of the previous section. Create a package inside the root package <font color=\"blue\"><code>SMIB</code></font> and name it <font color=\"blue\"><code>Utilities</code></font>. </li>

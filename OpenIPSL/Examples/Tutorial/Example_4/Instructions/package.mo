@@ -10,7 +10,7 @@ package Instructions "Instructions"
       <strong>GridCal</strong> setup to generate the power flow solutions. Please refer to section <a href=\"modelica://OpenIPSL.Examples.Tutorial.Example_4.Instructions.InstallingGridCal\">Installing GridCal</a> for installation instructions.
     </li>
     <li>OpenIPSL library.</li>
-    <li>Python scripts and PSS/E model files to be found within the <a href=\"modelica://OpenIPSL/Resources/utils/pfRecordCreator\">Resources</a> folder of the OpenIPSL library. </li>
+    <li>Python scripts to be found within the <a href=\"modelica://OpenIPSL/Resources/utils\">Resources</a> folder of the OpenIPSL library. </li>
   </ul>
   <h5>System Parameters</h5>
   <p>The system parameters for the static power flow model are listed below:</p>
