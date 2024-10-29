@@ -143,7 +143,7 @@ Type \"help\", \"copyright\", \"credits\" or \"license\" for more information.
     </pre></blockquote>
     <p>As shown above you should not get any errors.</p>
     </li>
-    <li>( <strong>Optional but recommended</strong>) Install <font color=\"blue\"><code>JupyterLab</code></font> by using <code>pip</code> inside of your environment:
+    <li>(<strong>Optional but recommended</strong>) Install <font color=\"blue\"><code>JupyterLab</code></font> by using <code>pip</code> inside of your environment:
     <blockquote><pre>
 <strong>pip install</strong> jupyterlab
     </pre></blockquote>
