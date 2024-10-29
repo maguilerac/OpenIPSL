@@ -9,7 +9,7 @@ model PFRecordCreation "Creating the PF Structure"
     <li>Create a directory called <font color=\"blue\"><code>models</code></font> below your new <font color=\"blue\"><code>SMIB_Example</code></font> folder. </li>
     <li>Move the <font color=\"blue\"><code>SMIB</code></font> folder below the previously added <font color=\"blue\"><code>models</code></font> folder. </li>
     <li>Copy the <font color=\"blue\"><code>pf2rec</code></font> folder from <a href=\"modelica://OpenIPSL/Resources/utils\">Resources</a> to the <font color=\"blue\"><code>SMIB_Example</code></font> folder. </li>
-    <li>Move the <font color=\"blue\"><code>create_records.py</code></font> and <font color=\"blue\"><code>run_pf.py</code></font> python files one level up (i.e., to the <font color=\"blue\"><code>SMIB_Example</code></font> folder). The tree below shows how your folder structure should look like:
+    <li>Move the <font color=\"blue\"><code>create_records.py</code></font> and <font color=\"blue\"><code>run_pf.py</code></font> Python files one level up (i.e., to the <font color=\"blue\"><code>SMIB_Example</code></font> folder). The tree below shows how your folder structure should look like:
     <blockquote><pre>
 C:\\Users\\...>tree /f /a SMIB_Example
 Folder PATH listing
@@ -51,7 +51,7 @@ C:\\USERS\\...\\SMIB_Example
     <hr>
     </li>
     <li>Right-click the <font color=\"blue\"><code>saveTotalSMIBModel</code></font> function from the Package Browser. Select the &quot; <em>Call Function...</em>&quot; option and then click the <font color=\"blue\"><code>OK</code></font> button. As a result, you should be able to see a new file called <em><font color=\"blue\"><code>SMIBTotal.mo</code></font></em> in the same folder where your model files are being stored. </li>
-    <li>Go to the system terminal, change the current directory to the location where the <font color=\"blue\"><code>create_records</code></font> python script is placed and execute it as indicated below.
+    <li>Go to the system terminal, change the current directory to the location where the <font color=\"blue\"><code>create_records</code></font> Python script is placed and execute it as indicated below.
     <blockquote><pre>
 <strong>python</strong> create_records.py
     </pre></blockquote>
@@ -59,7 +59,7 @@ C:\\USERS\\...\\SMIB_Example
     <li>Go back to Dymola and refresh ( <img src=\"modelica://OpenIPSL/Resources/images/example_4/PFRecordCreation/RefreshButton.png\" alt=\"RefreshButton\" />) the SMIB package.
     <hr>
     <p>
-    &#x1F4CC; The python script <font color=\"blue\"><code>create_records</code></font> should have created a new package inside your model that looks like this
+    &#x1F4CC; The Python script <font color=\"blue\"><code>create_records</code></font> should have created a new package inside your model that looks like this
     </p>
     <p>
       <img src=\"modelica://OpenIPSL/Resources/images/example_4/PFRecordCreation/PFDataPackageStructure.png\" alt=\"PFDataPackageStructure\" />

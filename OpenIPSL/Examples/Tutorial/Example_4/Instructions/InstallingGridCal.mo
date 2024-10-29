@@ -3,18 +3,18 @@ model InstallingGridCal "Installing GridCal"
   extends Modelica.Icons.Information;
   annotation (DocumentationClass=true, Documentation(info="<html>
   <h5>Installing GridCal</h5>
-  <p>At this point, we have a record structure to keep the power flow solutions linked to the SMIB power system elements. It is our next task to populate the records and for that to be done we need a python script that runs a library called <em>GridCal</em> which computes the power flow. To properly install <em>GridCal</em> please follow the steps listed below: </p>
+  <p>At this point, we have a record structure to keep the power flow solutions linked to the SMIB power system elements. It is our next task to populate the records and for that to be done we need a Python script that runs a library called <em>GridCal</em> which computes the power flow. To properly install <em>GridCal</em> please follow the steps listed below: </p>
   <ol type=\"1\">
-    <li>Download <a href=\"https://www.python.org/downloads\">python</a> and install it. Note that GridCal developpers encourage to install the latest version of python <a href=\"https://github.com/SanPen/GridCal?tab=readme-ov-file#package-installation\">here</a>.
+    <li>Download <a href=\"https://www.python.org/downloads\">Python</a> and install it. Note that GridCal developpers encourage to install the latest version of Python <a href=\"https://github.com/SanPen/GridCal?tab=readme-ov-file#package-installation\">here</a>.
     <hr>
-    <p>&#x1F4CC; To install python for all users you must first run the installer as administrator. Then, you need to choose the <strong>Customize installation</strong> option. Click the <strong>Next</strong> button, which will open the <strong>Advanced Options</strong> window. Finally, tick the <em>Install Python 3.x for all users</em> checkbox before clicking the <strong>Install</strong> button. </p>
+    <p>&#x1F4CC; To install Python for all users you must first run the installer as administrator. Then, you need to choose the <strong>Customize installation</strong> option. Click the <strong>Next</strong> button, which will open the <strong>Advanced Options</strong> window. Finally, tick the <em>Install Python 3.x for all users</em> checkbox before clicking the <strong>Install</strong> button. </p>
     <p>&#x1F4CC; Choosing the <strong>Customize installation</strong> option will also allow you to customize the install location. </p>
-    <p>&#x1F4CC; If you want python to be recognized as a command in every console/command window you need to add it to <strong>PATH</strong>. This can be done by clicking the <em>Add python.exe to PATH</em> checkbox from the initial window. </p>
+    <p>&#x1F4CC; If you want Python to be recognized as a command in every console/command window you need to add it to <strong>PATH</strong>. This can be done by clicking the <em>Add python.exe to PATH</em> checkbox from the initial window. </p>
     <hr>
     </li>
-    <li>(Optional) Create a new python <em>virtual environment</em> to encapsulate the GridCal Installation and its dependencies.
+    <li>(Optional) Create a new Python <em>virtual environment</em> to encapsulate the GridCal Installation and its dependencies.
     <hr>
-    <p>&#x1F4CC; <em>Virtual environments</em> allow you to separate particular experimental setups from the generic python installation. This way, you can install GridCal and its dependencies on a virtual environment, which could later be removed without affecting your main python installation. </p>
+    <p>&#x1F4CC; <em>Virtual environments</em> allow you to separate particular experimental setups from the generic Python installation. This way, you can install GridCal and its dependencies on a virtual environment, which could later be removed without affecting your main Python installation. </p>
     <hr>
       <ol type=\"a\">
         <li>Open a command window/console and browse to the path where you want to create the <em>virtual environment</em>. </li>
@@ -87,7 +87,7 @@ Successfully installed Deprecated-1.2.14 GridCalEngine-5.1.52 PySide6-6.6.3.1 Py
 (openipsl_tutorial) C:\\Users\\Miguel\\SMIB_Example>
     </pre></blockquote>
     </li>
-    <li>Verify that the python packages were installed correctly, especially <em>GridCal v5.1.52 or newer</em>:
+    <li>Verify that the Python packages were installed correctly, especially <em>GridCal v5.1.52 or newer</em>:
     <blockquote><pre>
 (openipsl_tutorial) C:\\Users\\Miguel\\SMIB_Example><strong>python</strong> -m <strong>pip list</strong>
 Package            Version
@@ -130,7 +130,7 @@ xlwt               1.3.0
     <p>&#x1F4CC; Remember that GridCal has only been installed in the current environment. Therefore, whenever you use a script that requires this library the environment should be activated.</p>
     <hr>
     </li>
-    <li>Test your installation running this python command:
+    <li>Test your installation running this Python command:
     <blockquote><pre>
 <strong>import</strong> GridCalEngine.api as gce
     </pre></blockquote>
