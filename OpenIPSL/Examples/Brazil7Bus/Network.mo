@@ -1,25 +1,37 @@
 within OpenIPSL.Examples.Brazil7Bus;
 model Network "Brazilian 7-bus test system model, ready for simulation"
   extends Modelica.Icons.Example;
-  Electrical.Buses.BusExt IVAIPORA5(nn=3, np=2) annotation (Placement(transformation(extent={{0,-26},{2,20}})));
-  Electrical.Buses.BusExt SSANTIAGO(np=2, nn=3)
+  Electrical.Buses.BusExt IVAIPORA5(
+    V_b=500000,                     nn=3, np=2) annotation (Placement(transformation(extent={{0,-26},{2,20}})));
+  Electrical.Buses.BusExt SSANTIAGO(
+    V_b=500000,                     np=2, nn=3)
                                           annotation (Placement(transformation(extent={{-62,-42},{-60,-8}})));
-  Electrical.Buses.BusExt FOZAREIA(nn=2, np=3)
+  Electrical.Buses.BusExt FOZAREIA(
+    V_b=500000,                    nn=2, np=3)
                                    annotation (Placement(transformation(extent={{78,-42},{80,-8}})));
-  Electrical.Buses.BusExt SSEGREDO(nn=3, np=2) annotation (Placement(transformation(extent={{-22,-60},{-20,-26}})));
-  Electrical.Buses.BusExt IVAIPORA6(np=3, nn=2) annotation (Placement(transformation(extent={{0,34},{2,68}})));
-  Electrical.Buses.BusExt ITAIPU(np=2, nn=2)
+  Electrical.Buses.BusExt SSEGREDO(
+    V_b=500000,                    nn=3, np=2) annotation (Placement(transformation(extent={{-22,-60},{-20,-26}})));
+  Electrical.Buses.BusExt IVAIPORA6(
+    V_b=765000,                     np=3, nn=2) annotation (Placement(transformation(extent={{0,34},{2,68}})));
+  Electrical.Buses.BusExt ITAIPU(
+    V_b=765000,                  np=2, nn=2)
                                        annotation (Placement(transformation(extent={{-60,34},{-58,68}})));
-  Electrical.Buses.BusExt EQUIVALENT(np=2, nn=2) annotation (Placement(transformation(extent={{78,34},{80,68}})));
+  Electrical.Buses.BusExt EQUIVALENT(
+    V_b=765000,                      np=2, nn=2) annotation (Placement(transformation(extent={{78,34},{80,68}})));
   Electrical.Branches.PSSE.TwoWindingTransformer twoWindingTransformer annotation (Placement(transformation(
         extent={{-8,-8},{8,8}},
         rotation=270,
         origin={20,30})));
-  Generators.G1 GEN1 annotation (Placement(transformation(extent={{98,-32},{88,-22}})));
-  Generators.G1 GEN2 annotation (Placement(transformation(extent={{-86,-22},{-76,-12}})));
-  Generators.G1 GEN3 annotation (Placement(transformation(extent={{2,-46},{-8,-36}})));
-  Generators.G1 GEN4 annotation (Placement(transformation(extent={{-84,54},{-74,64}})));
-  Generators.G1 GEN5 annotation (Placement(transformation(extent={{102,54},{92,64}})));
+  Generators.G1 GEN1(M_b=1900000000, V_b=500000)
+                     annotation (Placement(transformation(extent={{98,-32},{88,-22}})));
+  Generators.G2 GEN2(M_b=1400000000, V_b=500000)
+                     annotation (Placement(transformation(extent={{-86,-22},{-76,-12}})));
+  Generators.G3 GEN3(M_b=1944000000, V_b=500000)
+                     annotation (Placement(transformation(extent={{2,-46},{-8,-36}})));
+  Generators.G4 GEN4(M_b=6633000000, V_b=765000)
+                     annotation (Placement(transformation(extent={{-84,54},{-74,64}})));
+  Generators.G5 GEN5(M_b=6000000000, V_b=765000)
+                     annotation (Placement(transformation(extent={{102,54},{92,64}})));
   Electrical.Banks.PSSE.Shunt shunt annotation (Placement(transformation(extent={{104,-28},{112,-20}})));
   Electrical.Banks.PSSE.Shunt shunt1 annotation (Placement(transformation(extent={{-84,-38},{-76,-30}})));
   Electrical.Banks.PSSE.Shunt shunt2 annotation (Placement(transformation(extent={{-36,-64},{-28,-56}})));
@@ -34,6 +46,7 @@ model Network "Brazilian 7-bus test system model, ready for simulation"
   Electrical.Loads.PSSE.Load load4 annotation (Placement(transformation(extent={{-14,-12},{-6,-4}})));
   Electrical.Loads.PSSE.Load load5 annotation (Placement(transformation(extent={{30,38},{38,46}})));
   Electrical.Loads.PSSE.Load load6 annotation (Placement(transformation(extent={{62,36},{70,44}})));
+  inner Electrical.SystemBase SysData(fn=60) annotation (Placement(transformation(extent={{-116,74},{-72,96}})));
 equation
   connect(IVAIPORA5.n[1], SSANTIAGO.p[1]) annotation (Line(points={{0,-7.6},{0,-16},{-60,-16},{-60,-27.55}},
                                                                                                            color={0,0,255}));
@@ -74,38 +87,31 @@ equation
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-120,-100},{120,100}})),
                                                                  Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-120,-100},{120,100}}), graphics={
         Text(
-          extent={{-60,76},{-44,68}},
+          extent={{-60,74},{-40,68}},
           textColor={0,140,72},
-          fontSize=8,
           textString="4 ITAIPU"),
         Text(
-          extent={{76,0},{102,-8}},
+          extent={{76,-2},{104,-8}},
           textColor={0,140,72},
-          textString="1 FOZ AREIA",
-          fontSize=8),
+          textString="1 FOZ AREIA"),
         Text(
-          extent={{-72,0},{-44,-8}},
+          extent={{-72,-2},{-38,-8}},
           textColor={0,140,72},
-          fontSize=8,
           textString="2 S. SANTIAGO"),
         Text(
-          extent={{-44,-18},{-16,-26}},
+          extent={{-40,-20},{-8,-26}},
           textColor={0,140,72},
-          fontSize=8,
           textString="3 S. SEGREDO"),
         Text(
-          extent={{0,74},{22,68}},
+          extent={{0,74},{26,68}},
           textColor={0,140,72},
-          fontSize=8,
           textString="6 IVAIPORA"),
         Text(
-          extent={{78,74},{106,68}},
+          extent={{78,74},{110,68}},
           textColor={0,140,72},
-          fontSize=8,
           textString="7 EQUIVALENT"),
         Text(
-          extent={{-12,26},{10,20}},
+          extent={{-14,26},{12,20}},
           textColor={0,140,72},
-          fontSize=8,
           textString="5 IVAIPORA")}));
 end Network;
