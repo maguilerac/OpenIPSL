@@ -82,19 +82,19 @@ model Network "Brazilian 7-bus test system model, ready for simulation"
     angle_0=pf.powerflow.bus.A7,
     M_b=6000000000,
     V_b=765000)      annotation (Placement(transformation(extent={{102,54},{92,64}})));
-  Electrical.Banks.PSSE.Shunt shunt(G=0, B=1.792)
+  Electrical.Banks.PSSE.Shunt shunt(G=0, B=0.1792)
                                     annotation (Placement(transformation(extent={{104,-28},{112,-20}})));
-  Electrical.Banks.PSSE.Shunt shunt1(G=0, B=1.491)
+  Electrical.Banks.PSSE.Shunt shunt1(G=0, B=0.1491)
                                      annotation (Placement(transformation(extent={{-84,-38},{-76,-30}})));
-  Electrical.Banks.PSSE.Shunt shunt2(G=0, B=1.142)
+  Electrical.Banks.PSSE.Shunt shunt2(G=0, B=0.1142)
                                      annotation (Placement(transformation(extent={{-36,-64},{-28,-56}})));
-  Electrical.Banks.PSSE.Shunt shunt4(G=0, B=0.33)
+  Electrical.Banks.PSSE.Shunt shunt4(G=0, B=0.033)
                                      annotation (Placement(transformation(extent={{-28,-8},{-20,0}})));
-  Electrical.Banks.PSSE.Shunt shunt3(G=0, B=0.368)
+  Electrical.Banks.PSSE.Shunt shunt3(G=0, B=0.0368)
                                      annotation (Placement(transformation(extent={{-78,34},{-70,42}})));
-  Electrical.Banks.PSSE.Shunt shunt6(G=0, B=0.42)
+  Electrical.Banks.PSSE.Shunt shunt6(G=0, B=0.042)
                                      annotation (Placement(transformation(extent={{92,36},{100,44}})));
-  Electrical.Banks.PSSE.Shunt shunt5(G=0, B=21.42)
+  Electrical.Banks.PSSE.Shunt shunt5(G=0, B=2.142)
                                      annotation (Placement(transformation(extent={{-34,34},{-26,42}})));
   Electrical.Loads.PSSE.Load load(
     P_0=pf.powerflow.load.PL1,
@@ -150,23 +150,36 @@ model Network "Brazilian 7-bus test system model, ready for simulation"
     PQBRAK=0.7,
     characteristic=2,
     V_b=765000)              annotation (Placement(transformation(extent={{62,36},{70,44}})));
-  inner Electrical.SystemBase SysData(fn=60) annotation (Placement(transformation(extent={{-116,74},{-72,96}})));
-  Electrical.Branches.PwLine line_1_5(R=0.019, X=0.245,
+  inner Electrical.SystemBase SysData(S_b=1000000000,
+                                      fn=60) annotation (Placement(transformation(extent={{-116,74},{-72,96}})));
+  Electrical.Branches.PwLine line_1_5(
+    R=0.019,
+    X=0.245,
     G=0,
     B=0)                                                annotation (Placement(transformation(extent={{36,-22},{48,-10}})));
-  Electrical.Branches.PwLine line_1_3(R=0.003, X=0.038,
+  Electrical.Branches.PwLine line_1_3(
+    R=0.003,
+    X=0.038,
     G=0,
     B=0)                                                annotation (Placement(transformation(extent={{20,-40},{32,-28}})));
-  Electrical.Branches.PwLine line_2_5(R=0.015, X=0.225,
+  Electrical.Branches.PwLine line_2_5(
+    R=0.015,
+    X=0.225,
     G=0,
     B=0)                                                annotation (Placement(transformation(extent={{-34,-22},{-22,-10}})));
-  Electrical.Branches.PwLine line_2_3(R=0.005, X=0.076,
+  Electrical.Branches.PwLine line_2_3(
+    R=0.005,
+    X=0.076,
     G=0,
     B=0)                                                annotation (Placement(transformation(extent={{-46,-40},{-34,-28}})));
-  Electrical.Branches.PwLine line_4_6(R=0.0029, X=0.0734,
+  Electrical.Branches.PwLine line_4_6(
+    R=0.0029,
+    X=0.0734,
     G=0,
     B=0)                                                  annotation (Placement(transformation(extent={{-34,54},{-22,66}})));
-  Electrical.Branches.PwLine line_1_1(R=0.004000001, X=0.057,
+  Electrical.Branches.PwLine line_1_1(
+    R=0.004,
+    X=0.057,
     G=0,
     B=0)                                                      annotation (Placement(transformation(extent={{36,54},{48,66}})));
   Data.PowerFlow pf(redeclare record PowerFlow = OpenIPSL.Examples.Brazil7Bus.Data.PF00000) annotation (Placement(transformation(extent={{-114,30},{-100,44}})));
