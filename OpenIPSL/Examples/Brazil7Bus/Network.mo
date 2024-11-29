@@ -2,21 +2,35 @@ within OpenIPSL.Examples.Brazil7Bus;
 model Network "Brazilian 7-bus test system model, ready for simulation"
   extends Modelica.Icons.Example;
   Electrical.Buses.BusExt IVAIPORA5(
+    v_0=pf.powerflow.bus.v5,
+    angle_0=pf.powerflow.bus.A5,
     V_b=500000,                     nn=3, np=2) annotation (Placement(transformation(extent={{0,-26},{2,20}})));
   Electrical.Buses.BusExt SSANTIAGO(
+    v_0=pf.powerflow.bus.v2,
+    angle_0=pf.powerflow.bus.A2,
     V_b=500000,                     np=2, nn=3)
                                           annotation (Placement(transformation(extent={{-62,-42},{-60,-8}})));
   Electrical.Buses.BusExt FOZAREIA(
+    v_0=pf.powerflow.bus.v1,
+    angle_0=pf.powerflow.bus.A1,
     V_b=500000,                    nn=2, np=3)
                                    annotation (Placement(transformation(extent={{78,-42},{80,-8}})));
   Electrical.Buses.BusExt SSEGREDO(
+    v_0=pf.powerflow.bus.v3,
+    angle_0=pf.powerflow.bus.A3,
     V_b=500000,                    nn=3, np=2) annotation (Placement(transformation(extent={{-22,-60},{-20,-26}})));
   Electrical.Buses.BusExt IVAIPORA6(
+    v_0=pf.powerflow.bus.v6,
+    angle_0=pf.powerflow.bus.A6,
     V_b=765000,                     np=3, nn=3) annotation (Placement(transformation(extent={{0,34},{2,68}})));
   Electrical.Buses.BusExt ITAIPU(
+    v_0=pf.powerflow.bus.v4,
+    angle_0=pf.powerflow.bus.A4,
     V_b=765000,                  np=2, nn=2)
                                        annotation (Placement(transformation(extent={{-60,34},{-58,68}})));
   Electrical.Buses.BusExt EQUIVALENT(
+    v_0=pf.powerflow.bus.v7,
+    angle_0=pf.powerflow.bus.A7,
     V_b=765000,                      np=2, nn=2) annotation (Placement(transformation(extent={{78,34},{80,68}})));
   Electrical.Branches.PSSE.TwoWindingTransformer twoWindingTransformer(
     CZ=1,
@@ -63,7 +77,7 @@ model Network "Brazilian 7-bus test system model, ready for simulation"
     V_b=765000)      annotation (Placement(transformation(extent={{-84,54},{-74,64}})));
   Generators.G5 GEN5(
     P_0=pf.powerflow.machine.PG5,
-    Q_0=pf.powerflow.machine.PG5,
+    Q_0=pf.powerflow.machine.QG5,
     v_0=pf.powerflow.bus.v7,
     angle_0=pf.powerflow.bus.A7,
     M_b=6000000000,
@@ -86,37 +100,56 @@ model Network "Brazilian 7-bus test system model, ready for simulation"
     P_0=pf.powerflow.load.PL1,
     Q_0=pf.powerflow.load.QL1,
     v_0=pf.powerflow.bus.v1,
-    angle_0=pf.powerflow.bus.A1)  annotation (Placement(transformation(extent={{84,-48},{92,-40}})));
+    angle_0=pf.powerflow.bus.A1,
+    PQBRAK=0.7,
+    characteristic=2,
+    V_b=500000)             annotation (Placement(transformation(extent={{84,-48},{92,-40}})));
   Electrical.Loads.PSSE.Load load1(
     P_0=pf.powerflow.load.PL2,
     Q_0=pf.powerflow.load.QL2,
     v_0=pf.powerflow.bus.v2,
-    angle_0=pf.powerflow.bus.A2)   annotation (Placement(transformation(extent={{-74,-48},{-66,-40}})));
+    angle_0=pf.powerflow.bus.A2,
+    PQBRAK=0.7,
+    characteristic=2,
+    V_b=500000)              annotation (Placement(transformation(extent={{-74,-48},{-66,-40}})));
   Electrical.Loads.PSSE.Load load2(
     P_0=pf.powerflow.load.PL3,
     Q_0=pf.powerflow.load.QL3,
     v_0=pf.powerflow.bus.v3,
-    angle_0=pf.powerflow.bus.A3)   annotation (Placement(transformation(extent={{-46,-58},{-38,-50}})));
+    angle_0=pf.powerflow.bus.A3,
+    PQBRAK=0.7,
+    characteristic=2,
+    V_b=500000)              annotation (Placement(transformation(extent={{-46,-58},{-38,-50}})));
   Electrical.Loads.PSSE.Load load3(
     P_0=pf.powerflow.load.PL4,
     Q_0=pf.powerflow.load.QL4,
     v_0=pf.powerflow.bus.v4,
-    angle_0=pf.powerflow.bus.A4)   annotation (Placement(transformation(extent={{-50,32},{-42,40}})));
+    angle_0=pf.powerflow.bus.A4,
+    PQBRAK=0.7,
+    characteristic=2,
+    V_b=765000)              annotation (Placement(transformation(extent={{-50,32},{-42,40}})));
   Electrical.Loads.PSSE.Load load4(
     P_0=pf.powerflow.load.PL5,
     Q_0=pf.powerflow.load.QL5,
     v_0=pf.powerflow.bus.v5,
-    angle_0=pf.powerflow.bus.A5)   annotation (Placement(transformation(extent={{-14,-12},{-6,-4}})));
+    angle_0=pf.powerflow.bus.A5,
+    PQBRAK=0.7,
+    characteristic=2,
+    V_b=500000)              annotation (Placement(transformation(extent={{-14,-12},{-6,-4}})));
   Electrical.Loads.PSSE.Load load5(
     P_0=pf.powerflow.load.PL6,
     Q_0=pf.powerflow.load.QL6,
     v_0=pf.powerflow.bus.v6,
-    angle_0=pf.powerflow.bus.A6)   annotation (Placement(transformation(extent={{30,38},{38,46}})));
+    angle_0=pf.powerflow.bus.A6,
+    V_b=765000)   annotation (Placement(transformation(extent={{30,38},{38,46}})));
   Electrical.Loads.PSSE.Load load7(
     P_0=pf.powerflow.load.PL8,
     Q_0=pf.powerflow.load.QL8,
     v_0=pf.powerflow.bus.v7,
-    angle_0=pf.powerflow.bus.A7)   annotation (Placement(transformation(extent={{62,36},{70,44}})));
+    angle_0=pf.powerflow.bus.A7,
+    PQBRAK=0.7,
+    characteristic=2,
+    V_b=765000)              annotation (Placement(transformation(extent={{62,36},{70,44}})));
   inner Electrical.SystemBase SysData(fn=60) annotation (Placement(transformation(extent={{-116,74},{-72,96}})));
   Electrical.Branches.PwLine line_1_5(R=0.019, X=0.245,
     G=0,
@@ -138,10 +171,13 @@ model Network "Brazilian 7-bus test system model, ready for simulation"
     B=0)                                                      annotation (Placement(transformation(extent={{36,54},{48,66}})));
   Data.PowerFlow pf(redeclare record PowerFlow = OpenIPSL.Examples.Brazil7Bus.Data.PF00000) annotation (Placement(transformation(extent={{-114,30},{-100,44}})));
   Electrical.Loads.PSSE.Load load6(
-    P_0=pf.powerflow.load.PL7,
-    Q_0=pf.powerflow.load.QL7,
+    P_0=0,
+    Q_0=0,
     v_0=pf.powerflow.bus.v6,
-    angle_0=pf.powerflow.bus.A6)   annotation (Placement(transformation(extent={{-16,30},{-8,38}})));
+    angle_0=pf.powerflow.bus.A6,
+    PQBRAK=0.7,
+    characteristic=2,
+    V_b=765000)              annotation (Placement(transformation(extent={{-16,30},{-8,38}})));
 equation
   connect(twoWindingTransformer.p, IVAIPORA6.p[1]) annotation (Line(points={{20,38.8},{20,44},{2,44},{2,47.6}},  color={0,0,255}));
   connect(twoWindingTransformer.n, IVAIPORA5.p[1]) annotation (Line(points={{20,21.2},{20,8},{2,8},{2,-6.45}}, color={0,0,255}));

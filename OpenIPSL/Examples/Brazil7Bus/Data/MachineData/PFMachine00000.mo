@@ -2,15 +2,15 @@ within OpenIPSL.Examples.Brazil7Bus.Data.MachineData;
 record PFMachine00000
 extends OpenIPSL.Examples.Brazil7Bus.Data.MachineData.MachineTemplate(
     PG1=1e06*(1658.0000000),
-    QG1=1e06*(-222.19856448277042),
+    QG1=1e06*(-412.3054),
     PG2=1e06*(1332.0000000),
-    QG2=1e06*(-42.09599788124053),
+    QG2=1e06*(-200.2795),
     PG3=1e06*(1540.0000000),
-    QG3=1e06*(-325.7532563052985),
+    QG3=1e06*(-446.672),
     PG4=1e06*(6500.0000000),
-    QG4=1e06*(1997.679489968783),
-    PG5=1e06*(-3164.3317396),
-    QG5=1e06*(991.5348985772744));
+    QG4=1e06*(1957.923),
+    PG5=1e06*(-3164.357),
+    QG5=1e06*(952.3445));
 
 // MACHINE: '1_1'
 // Bus: FOZ AREIA'
