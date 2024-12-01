@@ -26,6 +26,8 @@ model Plant "Framework for generating units including machine and controllers"
   replaceable Electrical.Controls.PSSE.PSS.IEEEST                       pss
     annotation (choicesAllMatching=true,
     Placement(transformation(extent={{-80,-20},{-40,20}})));
+  replaceable record GUDynamics = OpenIPSL.Data.PowerPlant.GUDynamics  constrainedby
+    OpenIPSL.Data.PowerPlant.GUDynamics annotation (choicesAllMatching=true);
 equation
   connect(machine.p, pwPin)
     annotation (Line(points={{80,0},{110,0}}, color={0,0,255}));

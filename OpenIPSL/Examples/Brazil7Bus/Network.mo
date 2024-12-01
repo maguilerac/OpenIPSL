@@ -52,36 +52,42 @@ model Network "Brazilian 7-bus test system model, ready for simulation"
     Q_0=pf.powerflow.machine.QG1,
     v_0=pf.powerflow.bus.v1,
     angle_0=pf.powerflow.bus.A1,
-    M_b=1900000000,
-    V_b=500000)      annotation (Placement(transformation(extent={{98,-32},{88,-22}})));
+    V_b=500000,
+    redeclare record GUDynamics = OpenIPSL.Data.PowerPlant.GUDynamics (redeclare record GUnitDynamics = OpenIPSL.Data.PowerPlant.PESTR18.Brazil7Bus.Brazil7Unit1))
+                     annotation (Placement(transformation(extent={{98,-32},{88,-22}})));
   Generators.G2 GEN2(
     P_0=pf.powerflow.machine.PG2,
     Q_0=pf.powerflow.machine.QG2,
     v_0=pf.powerflow.bus.v2,
     angle_0=pf.powerflow.bus.A2,
-    M_b=1400000000,
-    V_b=500000)      annotation (Placement(transformation(extent={{-86,-22},{-76,-12}})));
+    V_b=500000,
+    redeclare record GUDynamics = OpenIPSL.Data.PowerPlant.GUDynamics (redeclare record GUnitDynamics = OpenIPSL.Data.PowerPlant.PESTR18.Brazil7Bus.Brazil7Unit2))
+                     annotation (Placement(transformation(extent={{-86,-22},{-76,-12}})));
   Generators.G3 GEN3(
     P_0=pf.powerflow.machine.PG3,
     Q_0=pf.powerflow.machine.QG3,
     v_0=pf.powerflow.bus.v3,
     angle_0=pf.powerflow.bus.A3,
-    M_b=1944000000,
-    V_b=500000)      annotation (Placement(transformation(extent={{2,-46},{-8,-36}})));
+    V_b=500000,
+    redeclare record GUDynamics = OpenIPSL.Data.PowerPlant.GUDynamics (redeclare record GUnitDynamics = OpenIPSL.Data.PowerPlant.PESTR18.Brazil7Bus.Brazil7Unit3))
+                     annotation (Placement(transformation(extent={{2,-46},{-8,-36}})));
   Generators.G4 GEN4(
     P_0=pf.powerflow.machine.PG4,
     Q_0=pf.powerflow.machine.QG4,
     v_0=pf.powerflow.bus.v4,
     angle_0=pf.powerflow.bus.A4,
-    M_b=6633000000,
-    V_b=765000)      annotation (Placement(transformation(extent={{-84,54},{-74,64}})));
+    V_b=765000,
+    redeclare record GUDynamics = OpenIPSL.Data.PowerPlant.GUDynamics (redeclare record GUnitDynamics = OpenIPSL.Data.PowerPlant.PESTR18.Brazil7Bus.Brazil7Unit4))
+                     annotation (Placement(transformation(extent={{-84,54},{-74,64}})));
   Generators.G5 GEN5(
+    S_b=GEN5.gUDynamics.guDynamics.machine.M_b,
     P_0=pf.powerflow.machine.PG5,
     Q_0=pf.powerflow.machine.QG5,
     v_0=pf.powerflow.bus.v7,
     angle_0=pf.powerflow.bus.A7,
-    M_b=6000000000,
-    V_b=765000)      annotation (Placement(transformation(extent={{102,54},{92,64}})));
+    V_b=765000,
+    redeclare record GUDynamics = OpenIPSL.Data.PowerPlant.GUDynamics (redeclare record GUnitDynamics = OpenIPSL.Data.PowerPlant.PESTR18.Brazil7Bus.Brazil7Unit5))
+                     annotation (Placement(transformation(extent={{102,54},{92,64}})));
   Electrical.Banks.PSSE.Shunt shunt(G=0, B=0.1792)
                                     annotation (Placement(transformation(extent={{104,-28},{112,-20}})));
   Electrical.Banks.PSSE.Shunt shunt1(G=0, B=0.1491)
@@ -141,7 +147,10 @@ model Network "Brazilian 7-bus test system model, ready for simulation"
     Q_0=pf.powerflow.load.QL6,
     v_0=pf.powerflow.bus.v6,
     angle_0=pf.powerflow.bus.A6,
-    V_b=765000)   annotation (Placement(transformation(extent={{30,38},{38,46}})));
+    V_b=765000,
+    PQBRAK=0.7,
+    characteristic=2)
+                  annotation (Placement(transformation(extent={{30,38},{38,46}})));
   Electrical.Loads.PSSE.Load load7(
     P_0=pf.powerflow.load.PL8,
     Q_0=pf.powerflow.load.QL8,
