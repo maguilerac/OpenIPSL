@@ -1,6 +1,6 @@
 within OpenIPSL.Examples.Brazil7Bus.Generators;
-model G3 "Generation unit connected to bus SSEGREDO"
-  extends Plant(redeclare Electrical.Machines.PSSE.GENSAE machine(
+model G3NoPSS "Generation unit connected to bus SSEGREDO (without PSS)"
+  extends Electrical.Machines.PSSE.Plant(redeclare Electrical.Machines.PSSE.GENSAE machine(
       P_0=P_0,
       Q_0=Q_0,
       v_0=v_0,
@@ -26,25 +26,11 @@ model G3 "Generation unit connected to bus SSEGREDO"
       T_E=gUDynamics.guDynamics.excSystem.T_E,
       E_MIN=gUDynamics.guDynamics.excSystem.E_MIN,
       E_MAX=gUDynamics.guDynamics.excSystem.E_MAX),
-    pss(
-      A_1=gUDynamics.guDynamics.pss.A_1,
-      A_2=gUDynamics.guDynamics.pss.A_2,
-      A_3=gUDynamics.guDynamics.pss.A_3,
-      A_4=gUDynamics.guDynamics.pss.A_4,
-      A_5=gUDynamics.guDynamics.pss.A_5,
-      A_6=gUDynamics.guDynamics.pss.A_6,
-      T_1=gUDynamics.guDynamics.pss.T_1,
-      T_2=gUDynamics.guDynamics.pss.T_2,
-      T_3=gUDynamics.guDynamics.pss.T_3,
-      T_4=gUDynamics.guDynamics.pss.T_4,
-      T_5=gUDynamics.guDynamics.pss.T_5,
-      T_6=gUDynamics.guDynamics.pss.T_6,
-      K_S=gUDynamics.guDynamics.pss.K_S,
-      L_SMAX=gUDynamics.guDynamics.pss.L_SMAX,
-      L_SMIN=gUDynamics.guDynamics.pss.L_SMIN,
-      V_CU=gUDynamics.guDynamics.pss.V_CU,
-      V_CL=gUDynamics.guDynamics.pss.V_CL));
+    redeclare Electrical.Controls.PSSE.TG.ConstantPower governor,
+    redeclare Electrical.Controls.PSSE.PSS.DisabledPSS pss);
+  replaceable record GUDynamics = OpenIPSL.Data.PowerPlant.GUDynamics  constrainedby OpenIPSL.Data.PowerPlant.GUDynamics
+                                        annotation (choicesAllMatching=true);
   OpenIPSL.Data.PowerPlant.GUDynamics
              gUDynamics(redeclare record GUnitDynamics = OpenIPSL.Data.PowerPlant.PESTR18.Brazil7Bus.Brazil7Unit3)
     annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
-end G3;
+end G3NoPSS;

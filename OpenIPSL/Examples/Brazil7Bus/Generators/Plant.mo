@@ -48,8 +48,8 @@ equation
   connect(exciter.EFD, machine.EFD) annotation (Line(points={{22,0},{28,0},{28,-12},{36,-12}}, color={0,0,127}));
   connect(zero.y, exciter.VOEL) annotation (Line(points={{-11.6,-36},{0,-36},{0,-22}}, color={0,0,127}));
   connect(pss.VOTHSG, exciter.VOTHSG) annotation (Line(points={{-38,0},{-32,0},{-32,8},{-22,8}}, color={0,0,127}));
-  connect(machine.PELEC, pss.V_S) annotation (Line(points={{82,6},{94,6},{94,-54},{-92,-54},{-92,-8},{-84,-8}}, color={0,0,127}));
   connect(machine.ETERM, pss.V_CT) annotation (Line(points={{82,-6},{90,-6},{90,-58},{-96,-58},{-96,8},{-84,8}}, color={0,0,127}));
+  connect(machine.SPEED, pss.V_S) annotation (Line(points={{82,14},{96,14},{96,-54},{-92,-54},{-92,-8},{-84,-8}}, color={0,0,127}));
   annotation (Documentation(info="<html>
 <p>
 This model is meant as a simple framework to create a electric power plant that consists of:

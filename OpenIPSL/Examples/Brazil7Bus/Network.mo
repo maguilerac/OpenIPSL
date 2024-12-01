@@ -47,37 +47,45 @@ model Network "Brazilian 7-bus test system model, ready for simulation"
         extent={{-8,-8},{8,8}},
         rotation=270,
         origin={20,30})));
-  Generators.G1 GEN1(
+  replaceable
+  Generators.G1NoPSS
+                GEN1(
     P_0=pf.powerflow.machine.PG1,
     Q_0=pf.powerflow.machine.QG1,
     v_0=pf.powerflow.bus.v1,
     angle_0=pf.powerflow.bus.A1,
     V_b=500000,
-    redeclare record GUDynamics = OpenIPSL.Data.PowerPlant.GUDynamics (redeclare record GUnitDynamics = OpenIPSL.Data.PowerPlant.PESTR18.Brazil7Bus.Brazil7Unit1))
+    redeclare record GUDynamics = OpenIPSL.Data.PowerPlant.GUDynamics (redeclare record GUnitDynamics = OpenIPSL.Data.PowerPlant.PESTR18.Brazil7Bus.Brazil7Unit1)) constrainedby Interfaces.Generator
                      annotation (Placement(transformation(extent={{98,-32},{88,-22}})));
-  Generators.G2 GEN2(
+  replaceable
+  Generators.G2NoPSS
+                GEN2(
     P_0=pf.powerflow.machine.PG2,
     Q_0=pf.powerflow.machine.QG2,
     v_0=pf.powerflow.bus.v2,
     angle_0=pf.powerflow.bus.A2,
     V_b=500000,
-    redeclare record GUDynamics = OpenIPSL.Data.PowerPlant.GUDynamics (redeclare record GUnitDynamics = OpenIPSL.Data.PowerPlant.PESTR18.Brazil7Bus.Brazil7Unit2))
+    redeclare record GUDynamics = OpenIPSL.Data.PowerPlant.GUDynamics (redeclare record GUnitDynamics = OpenIPSL.Data.PowerPlant.PESTR18.Brazil7Bus.Brazil7Unit2)) constrainedby Interfaces.Generator
                      annotation (Placement(transformation(extent={{-86,-22},{-76,-12}})));
-  Generators.G3 GEN3(
+  replaceable
+  Generators.G3NoPSS
+                GEN3(
     P_0=pf.powerflow.machine.PG3,
     Q_0=pf.powerflow.machine.QG3,
     v_0=pf.powerflow.bus.v3,
     angle_0=pf.powerflow.bus.A3,
     V_b=500000,
-    redeclare record GUDynamics = OpenIPSL.Data.PowerPlant.GUDynamics (redeclare record GUnitDynamics = OpenIPSL.Data.PowerPlant.PESTR18.Brazil7Bus.Brazil7Unit3))
+    redeclare record GUDynamics = OpenIPSL.Data.PowerPlant.GUDynamics (redeclare record GUnitDynamics = OpenIPSL.Data.PowerPlant.PESTR18.Brazil7Bus.Brazil7Unit3)) constrainedby Interfaces.Generator
                      annotation (Placement(transformation(extent={{2,-46},{-8,-36}})));
-  Generators.G4 GEN4(
+  replaceable
+  Generators.G4NoPSS
+                GEN4(
     P_0=pf.powerflow.machine.PG4,
     Q_0=pf.powerflow.machine.QG4,
     v_0=pf.powerflow.bus.v4,
     angle_0=pf.powerflow.bus.A4,
     V_b=765000,
-    redeclare record GUDynamics = OpenIPSL.Data.PowerPlant.GUDynamics (redeclare record GUnitDynamics = OpenIPSL.Data.PowerPlant.PESTR18.Brazil7Bus.Brazil7Unit4))
+    redeclare record GUDynamics = OpenIPSL.Data.PowerPlant.GUDynamics (redeclare record GUnitDynamics = OpenIPSL.Data.PowerPlant.PESTR18.Brazil7Bus.Brazil7Unit4)) constrainedby Interfaces.Generator
                      annotation (Placement(transformation(extent={{-84,54},{-74,64}})));
   Generators.G5 GEN5(
     S_b=GEN5.gUDynamics.guDynamics.machine.M_b,

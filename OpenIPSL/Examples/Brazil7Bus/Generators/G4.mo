@@ -1,6 +1,10 @@
 within OpenIPSL.Examples.Brazil7Bus.Generators;
 model G4 "Generation unit connected to bus ITAIPU"
   extends Plant(redeclare Electrical.Machines.PSSE.GENSAE machine(
+      P_0=P_0,
+      Q_0=Q_0,
+      v_0=v_0,
+      angle_0=angle_0,
       M_b=gUDynamics.guDynamics.machine.M_b,
       Tpd0=gUDynamics.guDynamics.machine.Tpd0,
       Tppd0=gUDynamics.guDynamics.machine.Tppd0,
