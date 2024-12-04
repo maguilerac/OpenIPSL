@@ -200,14 +200,16 @@ model Network "Brazilian 7-bus test system model, ready for simulation"
     G=0,
     B=0)                                                      annotation (Placement(transformation(extent={{36,54},{48,66}})));
   Data.PowerFlow pf(redeclare record PowerFlow = OpenIPSL.Examples.Brazil7Bus.Data.PF00000) annotation (Placement(transformation(extent={{-114,30},{-100,44}})));
-  Electrical.Loads.PSSE.Load load6(
+  Electrical.Loads.PSSE.Load_switch load6(
     P_0=0,
-    Q_0=0,
+    Q_0=-500000000,
     v_0=pf.powerflow.bus.v6,
     angle_0=pf.powerflow.bus.A6,
     PQBRAK=0.7,
     characteristic=2,
-    V_b=765000)              annotation (Placement(transformation(extent={{-16,30},{-8,38}})));
+    V_b=765000,
+    t1=1,
+    t2=1.1)                  annotation (Placement(transformation(extent={{-16,30},{-8,38}})));
 equation
   connect(twoWindingTransformer.p, IVAIPORA6.p[1]) annotation (Line(points={{20,38.8},{20,44},{2,44},{2,47.6}},  color={0,0,255}));
   connect(twoWindingTransformer.n, IVAIPORA5.p[1]) annotation (Line(points={{20,21.2},{20,8},{2,8},{2,-6.45}}, color={0,0,255}));
