@@ -1,0 +1,21 @@
+within OpenIPSL.Data.PowerPlant.PESTR18.ESData.NewEngland39;
+partial record ESST1ATemplate "ESST1A Type Excitation System Data"
+  parameter Types.Time T_R "Regulator input filter time constant";
+  parameter Types.PerUnit V_IMAX "Maximum voltage error (regulator input)";
+  parameter Types.PerUnit V_IMIN "Minimum voltage error (regulator input)";
+  parameter Types.Time T_C "Regulator numerator (lead) time constant. First lead-lag";
+  parameter Types.Time T_B "Regulator denominator (lag) time constant. First lead-lag";
+  parameter Types.Time T_C1 "Regulator numerator (lead) time constant. Second lead-lag";
+  parameter Types.Time T_B1 "Regulator denominator (lag) time constant. Second lead-lag";
+  parameter Types.PerUnit K_A "Voltage regulator gain";
+  parameter Types.Time T_A "Voltage regulator time constant";
+  parameter Types.PerUnit V_AMAX "Maximum regulator output";
+  parameter Types.PerUnit V_AMIN "Minimum regulator output";
+  parameter Types.PerUnit V_RMAX "Maximum exciter output";
+  parameter Types.PerUnit V_RMIN "Minimum exciter output";
+  parameter Types.PerUnit K_C "Rectifier loading factor proportional to commutating reactance";
+  parameter Types.PerUnit K_F "Rate feedback gain";
+  parameter Types.Time T_F "Rate feedback time constant";
+  parameter Types.PerUnit K_LR "Exciter output current limiter gain";
+  parameter Types.PerUnit I_LR "Exciter output current limit reference";
+end ESST1ATemplate;
