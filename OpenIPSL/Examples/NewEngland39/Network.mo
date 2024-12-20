@@ -396,6 +396,14 @@ model Network "New England 39-bus test system model, ready for simulation"
         extent={{-6,-6},{6,6}},
         rotation=90,
         origin={-148,-62})));
+  Electrical.Branches.PwLine line1011(
+    R=0.0004,
+    X=0.0043,
+    G=0,
+    B=0.0729) annotation (Placement(transformation(
+        extent={{-6,-6},{6,6}},
+        rotation=90,
+        origin={-34,-110})));
   Electrical.Branches.PwLine line1013(
     R=0.0004,
     X=0.0043,
@@ -412,14 +420,6 @@ model Network "New England 39-bus test system model, ready for simulation"
         extent={{-6,-6},{6,6}},
         rotation=90,
         origin={0,-40})));
-  Electrical.Branches.PwLine line1011(
-    R=0.0004,
-    X=0.0043,
-    G=0,
-    B=0.0729) annotation (Placement(transformation(
-        extent={{-6,-6},{6,6}},
-        rotation=90,
-        origin={-34,-110})));
   Electrical.Branches.PwLine line1415(
     R=0.0018,
     X=0.0217,
@@ -726,6 +726,8 @@ model Network "New England 39-bus test system model, ready for simulation"
         rotation=-90,
         origin={156,100})));
   replaceable Generators.G1 gen39(V_b=V_b,
+    P_0=powerFlow.powerflow.machine.PG10,
+    Q_0=powerFlow.powerflow.machine.QG10,
     v_0=powerFlow.powerflow.bus.v39,
     angle_0=powerFlow.powerflow.bus.A39,   redeclare record GUDynamics = OpenIPSL.Data.PowerPlant.GUDynamics (redeclare record GUnitDynamics =
             OpenIPSL.Data.PowerPlant.PESTR18.NewEngland39.NE39Unit1))
@@ -734,6 +736,8 @@ model Network "New England 39-bus test system model, ready for simulation"
         rotation=270,
         origin={-160,5})));
   replaceable Generators.G2 gen31(V_b=V_b,
+    P_0=powerFlow.powerflow.machine.PG2,
+    Q_0=powerFlow.powerflow.machine.QG2,
     v_0=powerFlow.powerflow.bus.v31,
     angle_0=powerFlow.powerflow.bus.A31,   redeclare record GUDynamics = OpenIPSL.Data.PowerPlant.GUDynamics (redeclare record GUnitDynamics =
             OpenIPSL.Data.PowerPlant.PESTR18.NewEngland39.NE39Unit2))
@@ -742,6 +746,8 @@ model Network "New England 39-bus test system model, ready for simulation"
         rotation=90,
         origin={-74,-137})));
   replaceable Generators.G3 gen32(V_b=V_b,
+    P_0=powerFlow.powerflow.machine.PG3,
+    Q_0=powerFlow.powerflow.machine.QG3,
     v_0=powerFlow.powerflow.bus.v32,
     angle_0=powerFlow.powerflow.bus.A32,   redeclare record GUDynamics = OpenIPSL.Data.PowerPlant.GUDynamics (redeclare record GUnitDynamics =
             OpenIPSL.Data.PowerPlant.PESTR18.NewEngland39.NE39Unit3))
@@ -750,6 +756,8 @@ model Network "New England 39-bus test system model, ready for simulation"
         rotation=90,
         origin={-12,-161})));
   replaceable Generators.G4 gen33(V_b=V_b,
+    P_0=powerFlow.powerflow.machine.PG4,
+    Q_0=powerFlow.powerflow.machine.QG4,
     v_0=powerFlow.powerflow.bus.v33,
     angle_0=powerFlow.powerflow.bus.A33,   redeclare record GUDynamics = OpenIPSL.Data.PowerPlant.GUDynamics (redeclare record GUnitDynamics =
             OpenIPSL.Data.PowerPlant.PESTR18.NewEngland39.NE39Unit4))
@@ -757,7 +765,9 @@ model Network "New England 39-bus test system model, ready for simulation"
         extent={{-5,-6},{5,6}},
         rotation=90,
         origin={78,-137})));
-  replaceable Generators.G5 gen05(V_b=V_b,
+  replaceable Generators.G5 gen34(V_b=V_b,
+    P_0=powerFlow.powerflow.machine.PG5,
+    Q_0=powerFlow.powerflow.machine.QG5,
     v_0=powerFlow.powerflow.bus.v34,
     angle_0=powerFlow.powerflow.bus.A34,   redeclare record GUDynamics = OpenIPSL.Data.PowerPlant.GUDynamics (redeclare record GUnitDynamics =
             OpenIPSL.Data.PowerPlant.PESTR18.NewEngland39.NE39Unit5))
@@ -765,7 +775,9 @@ model Network "New England 39-bus test system model, ready for simulation"
         extent={{-5,-6},{5,6}},
         rotation=90,
         origin={42,-137})));
-  replaceable Generators.G6 gen06(V_b=V_b,
+  replaceable Generators.G6 gen35(V_b=V_b,
+    P_0=powerFlow.powerflow.machine.PG6,
+    Q_0=powerFlow.powerflow.machine.QG6,
     v_0=powerFlow.powerflow.bus.v35,
     angle_0=powerFlow.powerflow.bus.A35,   redeclare record GUDynamics = OpenIPSL.Data.PowerPlant.GUDynamics (redeclare record GUnitDynamics =
             OpenIPSL.Data.PowerPlant.PESTR18.NewEngland39.NE39Unit6))
@@ -773,7 +785,9 @@ model Network "New England 39-bus test system model, ready for simulation"
         extent={{-5,-6},{5,6}},
         rotation=270,
         origin={156,51})));
-  replaceable Generators.G7 gen07(V_b=V_b,
+  replaceable Generators.G7 gen36(V_b=V_b,
+    P_0=powerFlow.powerflow.machine.PG7,
+    Q_0=powerFlow.powerflow.machine.QG7,
     v_0=powerFlow.powerflow.bus.v36,
     angle_0=powerFlow.powerflow.bus.A36,   redeclare record GUDynamics = OpenIPSL.Data.PowerPlant.GUDynamics (redeclare record GUnitDynamics =
             OpenIPSL.Data.PowerPlant.PESTR18.NewEngland39.NE39Unit7))
@@ -781,7 +795,9 @@ model Network "New England 39-bus test system model, ready for simulation"
         extent={{-5,-6},{5,6}},
         rotation=90,
         origin={140,-109})));
-  replaceable Generators.G8 gen08(V_b=V_b,
+  replaceable Generators.G8 gen37(V_b=V_b,
+    P_0=powerFlow.powerflow.machine.PG8,
+    Q_0=powerFlow.powerflow.machine.QG8,
     v_0=powerFlow.powerflow.bus.v37,
     angle_0=powerFlow.powerflow.bus.A37,   redeclare record GUDynamics = OpenIPSL.Data.PowerPlant.GUDynamics (redeclare record GUnitDynamics =
             OpenIPSL.Data.PowerPlant.PESTR18.NewEngland39.NE39Unit8))
@@ -789,7 +805,9 @@ model Network "New England 39-bus test system model, ready for simulation"
         extent={{-5,-6},{5,6}},
         rotation=270,
         origin={-80,147})));
-  replaceable Generators.G9 gen09(V_b=V_b,
+  replaceable Generators.G9 gen38(V_b=V_b,
+    P_0=powerFlow.powerflow.machine.PG9,
+    Q_0=powerFlow.powerflow.machine.QG9,
     v_0=powerFlow.powerflow.bus.v38,
     angle_0=powerFlow.powerflow.bus.A38,   redeclare record GUDynamics = OpenIPSL.Data.PowerPlant.GUDynamics (redeclare record GUnitDynamics =
             OpenIPSL.Data.PowerPlant.PESTR18.NewEngland39.NE39Unit9))
@@ -797,7 +815,9 @@ model Network "New England 39-bus test system model, ready for simulation"
         extent={{-5,-6},{5,6}},
         rotation=90,
         origin={156,75})));
-  replaceable Generators.G10 gen10(V_b=V_b,
+  replaceable Generators.G10 gen30(V_b=V_b,
+    P_0=powerFlow.powerflow.machine.PG1,
+    Q_0=powerFlow.powerflow.machine.QG1,
     v_0=powerFlow.powerflow.bus.v30,
     angle_0=powerFlow.powerflow.bus.A30,    redeclare record GUDynamics = OpenIPSL.Data.PowerPlant.GUDynamics (redeclare record GUnitDynamics =
             OpenIPSL.Data.PowerPlant.PESTR18.NewEngland39.NE39Unit10))
@@ -806,10 +826,14 @@ model Network "New England 39-bus test system model, ready for simulation"
         rotation=270,
         origin={-130,127})));
   Electrical.Loads.PSSE.Load load03(V_b=V_b,
+    P_0=powerFlow.powerflow.load.PL1,
+    Q_0=powerFlow.powerflow.load.QL1,
     v_0=powerFlow.powerflow.bus.v3,
     angle_0=powerFlow.powerflow.bus.A3,
     PQBRAK=0.7, characteristic=2) annotation (Placement(transformation(extent={{-84,22},{-76,30}})));
   Electrical.Loads.PSSE.Load load04(V_b=V_b,
+    P_0=powerFlow.powerflow.load.PL2,
+    Q_0=powerFlow.powerflow.load.QL2,
     v_0=powerFlow.powerflow.bus.v4,
     angle_0=powerFlow.powerflow.bus.A4,
     PQBRAK=0.7, characteristic=2) annotation (Placement(transformation(
@@ -817,14 +841,20 @@ model Network "New England 39-bus test system model, ready for simulation"
         rotation=180,
         origin={-110,2})));
   Electrical.Loads.PSSE.Load load07(V_b=V_b,
+    P_0=powerFlow.powerflow.load.PL3,
+    Q_0=powerFlow.powerflow.load.QL3,
     v_0=powerFlow.powerflow.bus.v7,
     angle_0=powerFlow.powerflow.bus.A7,
     PQBRAK=0.7, characteristic=2) annotation (Placement(transformation(extent={{-104,-98},{-96,-90}})));
   Electrical.Loads.PSSE.Load load08(V_b=V_b,
+    P_0=powerFlow.powerflow.load.PL4,
+    Q_0=powerFlow.powerflow.load.QL4,
     v_0=powerFlow.powerflow.bus.v8,
     angle_0=powerFlow.powerflow.bus.A8,
     PQBRAK=0.7, characteristic=2) annotation (Placement(transformation(extent={{-120,-116},{-112,-108}})));
   Electrical.Loads.PSSE.Load load12(V_b=V_b,
+    P_0=powerFlow.powerflow.load.PL5,
+    Q_0=powerFlow.powerflow.load.QL5,
     v_0=powerFlow.powerflow.bus.v12,
     angle_0=powerFlow.powerflow.bus.A12,
     PQBRAK=0.7, characteristic=2) annotation (Placement(transformation(
@@ -832,18 +862,26 @@ model Network "New England 39-bus test system model, ready for simulation"
         rotation=180,
         origin={-28,-46})));
   Electrical.Loads.PSSE.Load load15(V_b=V_b,
+    P_0=powerFlow.powerflow.load.PL6,
+    Q_0=powerFlow.powerflow.load.QL6,
     v_0=powerFlow.powerflow.bus.v15,
     angle_0=powerFlow.powerflow.bus.A15,
     PQBRAK=0.7, characteristic=2) annotation (Placement(transformation(extent={{12,-8},{20,0}})));
   Electrical.Loads.PSSE.Load load16(V_b=V_b,
+    P_0=powerFlow.powerflow.load.PL7,
+    Q_0=powerFlow.powerflow.load.QL7,
     v_0=powerFlow.powerflow.bus.v16,
     angle_0=powerFlow.powerflow.bus.A16,
     PQBRAK=0.7, characteristic=2) annotation (Placement(transformation(extent={{36,12},{44,20}})));
   Electrical.Loads.PSSE.Load load18(V_b=V_b,
+    P_0=powerFlow.powerflow.load.PL8,
+    Q_0=powerFlow.powerflow.load.QL8,
     v_0=powerFlow.powerflow.bus.v18,
     angle_0=powerFlow.powerflow.bus.A18,
     PQBRAK=0.7, characteristic=2) annotation (Placement(transformation(extent={{-68,52},{-60,60}})));
   Electrical.Loads.PSSE.Load load20(V_b=V_b,
+    P_0=powerFlow.powerflow.load.PL9,
+    Q_0=powerFlow.powerflow.load.QL9,
     v_0=powerFlow.powerflow.bus.v20,
     angle_0=powerFlow.powerflow.bus.A20,
     PQBRAK=0.7, characteristic=2) annotation (Placement(transformation(
@@ -851,10 +889,14 @@ model Network "New England 39-bus test system model, ready for simulation"
         rotation=180,
         origin={28,-78})));
   Electrical.Loads.PSSE.Load load21(V_b=V_b,
+    P_0=powerFlow.powerflow.load.PL10,
+    Q_0=powerFlow.powerflow.load.QL10,
     v_0=powerFlow.powerflow.bus.v21,
     angle_0=powerFlow.powerflow.bus.A21,
     PQBRAK=0.7, characteristic=2) annotation (Placement(transformation(extent={{84,-8},{92,0}})));
   Electrical.Loads.PSSE.Load load23(V_b=V_b,
+    P_0=powerFlow.powerflow.load.PL11,
+    Q_0=powerFlow.powerflow.load.QL11,
     v_0=powerFlow.powerflow.bus.v23,
     angle_0=powerFlow.powerflow.bus.A23,
     PQBRAK=0.7, characteristic=2) annotation (Placement(transformation(
@@ -862,14 +904,20 @@ model Network "New England 39-bus test system model, ready for simulation"
         rotation=180,
         origin={140,-52})));
   Electrical.Loads.PSSE.Load load24(V_b=V_b,
+    P_0=powerFlow.powerflow.load.PL12,
+    Q_0=powerFlow.powerflow.load.QL12,
     v_0=powerFlow.powerflow.bus.v24,
     angle_0=powerFlow.powerflow.bus.A24,
     PQBRAK=0.7, characteristic=2) annotation (Placement(transformation(extent={{90,52},{98,60}})));
   Electrical.Loads.PSSE.Load load25(V_b=V_b,
+    P_0=powerFlow.powerflow.load.PL13,
+    Q_0=powerFlow.powerflow.load.QL13,
     v_0=powerFlow.powerflow.bus.v25,
     angle_0=powerFlow.powerflow.bus.A25,
     PQBRAK=0.7, characteristic=2) annotation (Placement(transformation(extent={{-84,92},{-76,100}})));
   Electrical.Loads.PSSE.Load load26(V_b=V_b,
+    P_0=powerFlow.powerflow.load.PL14,
+    Q_0=powerFlow.powerflow.load.QL14,
     v_0=powerFlow.powerflow.bus.v26,
     angle_0=powerFlow.powerflow.bus.A26,
     PQBRAK=0.7, characteristic=2) annotation (Placement(transformation(
@@ -877,14 +925,20 @@ model Network "New England 39-bus test system model, ready for simulation"
         rotation=180,
         origin={-16,124})));
   Electrical.Loads.PSSE.Load load27(V_b=V_b,
+    P_0=powerFlow.powerflow.load.PL15,
+    Q_0=powerFlow.powerflow.load.QL15,
     v_0=powerFlow.powerflow.bus.v27,
     angle_0=powerFlow.powerflow.bus.A27,
     PQBRAK=0.7, characteristic=2) annotation (Placement(transformation(extent={{10,74},{18,82}})));
   Electrical.Loads.PSSE.Load load28(V_b=V_b,
+    P_0=powerFlow.powerflow.load.PL16,
+    Q_0=powerFlow.powerflow.load.QL16,
     v_0=powerFlow.powerflow.bus.v28,
     angle_0=powerFlow.powerflow.bus.A28,
     PQBRAK=0.7, characteristic=2) annotation (Placement(transformation(extent={{66,94},{74,102}})));
   Electrical.Loads.PSSE.Load load29(V_b=V_b,
+    P_0=powerFlow.powerflow.load.PL17,
+    Q_0=powerFlow.powerflow.load.QL17,
     v_0=powerFlow.powerflow.bus.v29,
     angle_0=powerFlow.powerflow.bus.A29,
     PQBRAK=0.7, characteristic=2) annotation (Placement(transformation(
@@ -892,14 +946,18 @@ model Network "New England 39-bus test system model, ready for simulation"
         rotation=180,
         origin={156,126})));
   Electrical.Loads.PSSE.Load load31(V_b=V_b,
+    P_0=powerFlow.powerflow.load.PL18,
+    Q_0=powerFlow.powerflow.load.QL18,
     v_0=powerFlow.powerflow.bus.v31,
     angle_0=powerFlow.powerflow.bus.A31,
     PQBRAK=0.7, characteristic=2) annotation (Placement(transformation(extent={{-64,-136},{-56,-128}})));
   Electrical.Loads.PSSE.Load load39(V_b=V_b,
+    P_0=powerFlow.powerflow.load.PL19,
+    Q_0=powerFlow.powerflow.load.QL19,
     v_0=powerFlow.powerflow.bus.v39,
     angle_0=powerFlow.powerflow.bus.A39,
     PQBRAK=0.7, characteristic=2) annotation (Placement(transformation(extent={{-164,-28},{-156,-20}})));
-  parameter Types.Voltage V_b=V_b "Base voltage";
+  parameter Types.Voltage V_b=10000 "Base voltage";
   PFData.PowerFlow powerFlow(redeclare record PowerFlow = OpenIPSL.Examples.NewEngland39.PFData.PF00000) annotation (Placement(transformation(extent={{-190,92},{-170,112}})));
 equation
   connect(bus14.n[1], line1415.p) annotation (Line(points={{-10.1,-10},{0,-10},{0,-5.4}}, color={0,0,255}));
@@ -988,20 +1046,20 @@ equation
   connect(line0139.p, bus39.n[1]) annotation (Line(points={{-148,18.6},{-148,-10},{-160.1,-10}}, color={0,0,255}));
   connect(bus01.n[1], line0102.p) annotation (Line(points={{-142,62},{-130,62},{-130,70.6}}, color={0,0,255}));
   connect(line0102.n, bus02.p[2]) annotation (Line(points={{-130,81.4},{-130,88},{-113.25,88}}, color={0,0,255}));
-  connect(gen09.pwPin, bus38.p[1]) annotation (Line(points={{156,80.5},{156,88}}, color={0,0,255}));
+  connect(gen38.pwPin, bus38.p[1]) annotation (Line(points={{156,80.5},{156,88}}, color={0,0,255}));
   connect(bus22.n[2], tr2235.n) annotation (Line(points={{150.1,12},{156,12},{156,17.4}}, color={0,0,255}));
   connect(tr2235.p, bus35.p[1]) annotation (Line(points={{156,30.6},{156,34}}, color={0,0,255}));
-  connect(gen06.pwPin, bus35.n[1]) annotation (Line(points={{156,45.5},{156,36}}, color={0,0,255}));
+  connect(gen35.pwPin, bus35.n[1]) annotation (Line(points={{156,45.5},{156,36}}, color={0,0,255}));
   connect(bus26.n[2], line2629.p) annotation (Line(points={{-7,112},{0,112},{0,126},{66.6,126}}, color={0,0,255}));
   connect(line2629.n, bus29.n[2]) annotation (Line(points={{77.4,126},{142,126},{142,112},{151,112}}, color={0,0,255}));
-  connect(gen08.pwPin, bus37.n[1]) annotation (Line(points={{-80,141.5},{-80,134}}, color={0,0,255}));
-  connect(gen10.pwPin, bus30.n[1]) annotation (Line(points={{-130,121.5},{-130,112}}, color={0,0,255}));
+  connect(gen37.pwPin, bus37.n[1]) annotation (Line(points={{-80,141.5},{-80,134}}, color={0,0,255}));
+  connect(gen30.pwPin, bus30.n[1]) annotation (Line(points={{-130,121.5},{-130,112}}, color={0,0,255}));
   connect(gen39.pwPin, bus39.n[2]) annotation (Line(points={{-160,-0.5},{-160,-10},{-155.9,-10}}, color={0,0,255}));
   connect(gen31.pwPin, bus31.p[1]) annotation (Line(points={{-74,-131.5},{-74,-120},{-68.1,-120}}, color={0,0,255}));
   connect(gen32.pwPin, bus32.p[1]) annotation (Line(points={{-12,-155.5},{-12,-146}}, color={0,0,255}));
-  connect(gen05.pwPin, bus34.p[1]) annotation (Line(points={{42,-131.5},{42,-120}}, color={0,0,255}));
+  connect(gen34.pwPin, bus34.p[1]) annotation (Line(points={{42,-131.5},{42,-120}}, color={0,0,255}));
   connect(gen33.pwPin, bus33.p[1]) annotation (Line(points={{78,-131.5},{78,-120}}, color={0,0,255}));
-  connect(gen07.pwPin, bus36.p[1]) annotation (Line(points={{140,-103.5},{140,-92}}, color={0,0,255}));
+  connect(gen36.pwPin, bus36.p[1]) annotation (Line(points={{140,-103.5},{140,-92}}, color={0,0,255}));
   connect(load03.p, bus03.p[2]) annotation (Line(points={{-80,30},{-80,38},{-87.9,38}}, color={0,0,255}));
   connect(load04.p, bus04.n[3]) annotation (Line(points={{-110,-2},{-110,-10},{-95.6,-10}}, color={0,0,255}));
   connect(bus05.p[2], line0508.n) annotation (Line(points={{-109,-42},{-128,-42},{-128,-64.6}}, color={0,0,255}));
