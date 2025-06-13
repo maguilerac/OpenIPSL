@@ -1,5 +1,6 @@
 within OpenIPSL.Examples.Brazil7Bus;
-model Network_VS "Brazilian 7-bus test system model, ready for simulation"
+model Network_VS_vmag_vang
+  "Brazilian 7-bus test system model, ready for simulation"
   extends Modelica.Icons.Example;
   Electrical.Buses.BusExt IVAIPORA5(
     v_0=pf.powerflow.bus.v5,
@@ -62,34 +63,34 @@ model Network_VS "Brazilian 7-bus test system model, ready for simulation"
   Electrical.Banks.PSSE.Shunt shunt5(G=0, B=2.142)
                                      annotation (Placement(transformation(extent={{-34,34},{-26,42}})));
   Electrical.Loads.PSSE.Load load(
-    P_0=pf.powerflow.load.PL1,
-    Q_0=pf.powerflow.load.QL1,
-    v_0=pf.powerflow.bus.v1,
-    angle_0=pf.powerflow.bus.A1,
+    P_0=2404000000,
+    Q_0=-467000000,
+    v_0=1.03,
+    angle_0=0.42812926551421,
     PQBRAK=0.7,
     characteristic=2,
     V_b=500000)             annotation (Placement(transformation(extent={{84,-48},{92,-40}})));
   Electrical.Loads.PSSE.Load load1(
-    P_0=pf.powerflow.load.PL2,
-    Q_0=pf.powerflow.load.QL2,
-    v_0=pf.powerflow.bus.v2,
-    angle_0=pf.powerflow.bus.A2,
+    P_0=692300000,
+    Q_0=-184000000,
+    v_0=1.03,
+    angle_0=0.47507862239286,
     PQBRAK=0.7,
     characteristic=2,
     V_b=500000)              annotation (Placement(transformation(extent={{-74,-48},{-66,-40}})));
   Electrical.Loads.PSSE.Load load2(
-    P_0=pf.powerflow.load.PL3,
-    Q_0=pf.powerflow.load.QL3,
-    v_0=pf.powerflow.bus.v3,
-    angle_0=pf.powerflow.bus.A3,
+    P_0=688200000,
+    Q_0=-235000000,
+    v_0=1.0290,
+    angle_0=0.46425758103049,
     PQBRAK=0.7,
     characteristic=2,
     V_b=500000)              annotation (Placement(transformation(extent={{-46,-58},{-38,-50}})));
   Electrical.Loads.PSSE.Load load3(
-    P_0=pf.powerflow.load.PL4,
-    Q_0=pf.powerflow.load.QL4,
-    v_0=pf.powerflow.bus.v4,
-    angle_0=pf.powerflow.bus.A4,
+    P_0=62600000,
+    Q_0=24300000,
+    v_0=1.039,
+    angle_0=0.84561202259125,
     PQBRAK=0.7,
     characteristic=2,
     V_b=765000)              annotation (Placement(transformation(extent={{-50,32},{-42,40}})));
@@ -111,10 +112,10 @@ model Network_VS "Brazilian 7-bus test system model, ready for simulation"
     characteristic=2)
                   annotation (Placement(transformation(extent={{30,38},{38,46}})));
   Electrical.Loads.PSSE.Load load7(
-    P_0=pf.powerflow.load.PL8,
-    Q_0=pf.powerflow.load.QL8,
-    v_0=pf.powerflow.bus.v7,
-    angle_0=pf.powerflow.bus.A7,
+    P_0=2884000000,
+    Q_0=-196000000,
+    v_0=0.966,
+    angle_0=0,
     PQBRAK=0.7,
     characteristic=2,
     V_b=765000)              annotation (Placement(transformation(extent={{62,36},{70,44}})));
@@ -161,17 +162,67 @@ model Network_VS "Brazilian 7-bus test system model, ready for simulation"
     V_b=765000,
     t1=1,
     t2=1.1)                  annotation (Placement(transformation(extent={{-16,30},{-8,38}})));
-  Electrical.Sources.SourceBehindImpedance.VoltageSources.VSource ita(v_0=
-        1.0300000)
+  Electrical.Sources.VoltageSourceReImInput ita(
+    P_0=62600000,
+    Q_0=24300000,
+    v_0=1.039,
+    angle_0(displayUnit="deg") = 0.84561202259125)
     annotation (Placement(transformation(extent={{-106,48},{-86,68}})));
-  Electrical.Sources.SourceBehindImpedance.VoltageSources.VSource ssan
+  Electrical.Sources.VoltageSourceReImInput ssan(
+    P_0=692300000,
+    Q_0=-184000000,
+    v_0=1.03,
+    angle_0(displayUnit="deg") = 0.47507862239286)
     annotation (Placement(transformation(extent={{-100,-22},{-80,-2}})));
-  Electrical.Sources.SourceBehindImpedance.VoltageSources.VSource equiv
+  Electrical.Buses.InfiniteBus equiv(
+    P_0=2884000000,
+    Q_0=-196000000,
+    v_0=0.9660,
+    angle_0(displayUnit="deg") = 0)
     annotation (Placement(transformation(extent={{52,74},{72,94}})));
-  Electrical.Sources.SourceBehindImpedance.VoltageSources.VSource seg
+  Electrical.Sources.VoltageSourceReImInput seg(
+    P_0=688200000,
+    Q_0=-235000000,
+    v_0=1.0290,
+    angle_0(displayUnit="deg") = 0.46425758103049)
     annotation (Placement(transformation(extent={{-38,-98},{-18,-78}})));
-  Electrical.Sources.SourceBehindImpedance.VoltageSources.VSource foz
-    annotation (Placement(transformation(extent={{66,-80},{86,-60}})));
+  Electrical.Sources.VoltageSourceReImInput foz(
+    P_0=2405000000,
+    Q_0=-467000000,
+    v_0=1.03,
+    angle_0(displayUnit="deg") = 0.42812926551421) annotation (Placement(
+        transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=0,
+        origin={136,-70})));
+  Modelica.Blocks.Sources.RealExpression Vm(y=1.039)
+    annotation (Placement(transformation(extent={{-210,56},{-190,76}})));
+  Modelica.Blocks.Math.PolarToRectangular polarToRectangular
+    annotation (Placement(transformation(extent={{-174,48},{-154,68}})));
+  Modelica.Blocks.Sources.RealExpression ang(y=
+        Modelica.Units.Conversions.from_deg(48.45))
+    annotation (Placement(transformation(extent={{-212,40},{-192,60}})));
+  Modelica.Blocks.Sources.RealExpression Vm1(y=1.03)
+    annotation (Placement(transformation(extent={{-180,-12},{-160,8}})));
+  Modelica.Blocks.Math.PolarToRectangular polarToRectangular1
+    annotation (Placement(transformation(extent={{-144,-20},{-124,0}})));
+  Modelica.Blocks.Sources.RealExpression ang1(y=
+        Modelica.Units.Conversions.from_deg(27.22))
+    annotation (Placement(transformation(extent={{-182,-28},{-162,-8}})));
+  Modelica.Blocks.Sources.RealExpression Vm2(y=1.029)
+    annotation (Placement(transformation(extent={{-122,-88},{-102,-68}})));
+  Modelica.Blocks.Math.PolarToRectangular polarToRectangular2
+    annotation (Placement(transformation(extent={{-86,-96},{-66,-76}})));
+  Modelica.Blocks.Sources.RealExpression ang2(y=
+        Modelica.Units.Conversions.from_deg(26.6))
+    annotation (Placement(transformation(extent={{-124,-104},{-104,-84}})));
+  Modelica.Blocks.Sources.RealExpression Vm3(y=1.03)
+    annotation (Placement(transformation(extent={{54,-72},{74,-52}})));
+  Modelica.Blocks.Math.PolarToRectangular polarToRectangular3
+    annotation (Placement(transformation(extent={{90,-80},{110,-60}})));
+  Modelica.Blocks.Sources.RealExpression ang3(y=
+        Modelica.Units.Conversions.from_deg(24.53))
+    annotation (Placement(transformation(extent={{52,-88},{72,-68}})));
 equation
   connect(twoWindingTransformer.p, IVAIPORA6.p[1]) annotation (Line(points={{20,38.8},{20,44},{2,44},{2,47.6}},  color={0,0,255}));
   connect(twoWindingTransformer.n, IVAIPORA5.p[1]) annotation (Line(points={{20,21.2},{20,8},{2,8},{2,-6.45}}, color={0,0,255}));
@@ -216,12 +267,44 @@ equation
           51},{-60,51}}, color={0,0,255}));
   connect(ssan.p, SSANTIAGO.n[1]) annotation (Line(points={{-79,-12},{-70,-12},
           {-70,-27.55},{-62,-27.55}}, color={0,0,255}));
-  connect(equiv.p, EQUIVALENT.p[1]) annotation (Line(points={{73,84},{112,84},{
+  connect(equiv.p, EQUIVALENT.p[1]) annotation (Line(points={{72,84},{112,84},{
           112,51},{80,51}}, color={0,0,255}));
   connect(seg.p, SSEGREDO.p[1]) annotation (Line(points={{-17,-88},{2,-88},{2,
           -43},{-20,-43}}, color={0,0,255}));
-  connect(foz.p, FOZAREIA.n[1]) annotation (Line(points={{87,-70},{106,-70},{
-          106,-27.55},{78,-27.55}}, color={0,0,255}));
+  connect(foz.p, FOZAREIA.n[1]) annotation (Line(points={{147,-70},{152,-70},{
+          152,0},{72,0},{72,-16},{78,-16},{78,-27.55}}, color={0,0,255}));
+  connect(polarToRectangular.y_re, ita.vRe) annotation (Line(points={{-153,64},
+          {-116,64},{-116,62},{-108,62}}, color={0,0,127}));
+  connect(polarToRectangular.y_im, ita.vIm) annotation (Line(points={{-153,52},
+          {-116,52},{-116,54},{-108,54}}, color={0,0,127}));
+  connect(Vm.y, polarToRectangular.u_abs)
+    annotation (Line(points={{-189,66},{-184,64},{-176,64}}, color={0,0,127}));
+  connect(ang.y, polarToRectangular.u_arg)
+    annotation (Line(points={{-191,50},{-186,52},{-176,52}}, color={0,0,127}));
+  connect(Vm1.y, polarToRectangular1.u_abs)
+    annotation (Line(points={{-159,-2},{-154,-4},{-146,-4}}, color={0,0,127}));
+  connect(ang1.y, polarToRectangular1.u_arg) annotation (Line(points={{-161,-18},
+          {-156,-16},{-146,-16}}, color={0,0,127}));
+  connect(polarToRectangular1.y_re, ssan.vRe) annotation (Line(points={{-123,-4},
+          {-110,-4},{-110,-8},{-102,-8}}, color={0,0,127}));
+  connect(polarToRectangular1.y_im, ssan.vIm)
+    annotation (Line(points={{-123,-16},{-102,-16}}, color={0,0,127}));
+  connect(Vm2.y, polarToRectangular2.u_abs) annotation (Line(points={{-101,-78},
+          {-96,-80},{-88,-80}}, color={0,0,127}));
+  connect(ang2.y, polarToRectangular2.u_arg) annotation (Line(points={{-103,-94},
+          {-98,-92},{-88,-92}}, color={0,0,127}));
+  connect(polarToRectangular2.y_re, seg.vRe) annotation (Line(points={{-65,-80},
+          {-50,-80},{-50,-84},{-40,-84}}, color={0,0,127}));
+  connect(polarToRectangular2.y_im, seg.vIm)
+    annotation (Line(points={{-65,-92},{-40,-92}}, color={0,0,127}));
+  connect(Vm3.y, polarToRectangular3.u_abs)
+    annotation (Line(points={{75,-62},{80,-64},{88,-64}}, color={0,0,127}));
+  connect(ang3.y, polarToRectangular3.u_arg)
+    annotation (Line(points={{73,-78},{78,-76},{88,-76}}, color={0,0,127}));
+  connect(polarToRectangular3.y_re, foz.vRe)
+    annotation (Line(points={{111,-64},{116,-66},{124,-66}}, color={0,0,127}));
+  connect(polarToRectangular3.y_im, foz.vIm)
+    annotation (Line(points={{111,-76},{116,-74},{124,-74}}, color={0,0,127}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-120,-100},{120,100}})),
                                                                  Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-120,-100},{120,100}}), graphics={
         Text(
@@ -252,4 +335,4 @@ equation
           extent={{-14,26},{12,20}},
           textColor={0,140,72},
           textString="5 IVAIPORA")}));
-end Network_VS;
+end Network_VS_vmag_vang;

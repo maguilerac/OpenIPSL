@@ -1,0 +1,275 @@
+within OpenIPSL.Examples.Brazil7Bus;
+model Network_VS_internalimpedance
+  "Brazilian 7-bus test system model, ready for simulation"
+  extends Modelica.Icons.Example;
+  Electrical.Buses.BusExt IVAIPORA5(
+    v_0=pf.powerflow.bus.v5,
+    angle_0=pf.powerflow.bus.A5,
+    V_b=500000,                     nn=3, np=2) annotation (Placement(transformation(extent={{0,-26},{2,20}})));
+  Electrical.Buses.BusExt SSANTIAGO(
+    v_0=pf.powerflow.bus.v2,
+    angle_0=pf.powerflow.bus.A2,
+    V_b=500000,                     np=2, nn=2)
+                                          annotation (Placement(transformation(extent={{-62,-42},{-60,-8}})));
+  Electrical.Buses.BusExt FOZAREIA(
+    v_0=pf.powerflow.bus.v1,
+    angle_0=pf.powerflow.bus.A1,
+    V_b=500000,                    nn=2, np=2)
+                                   annotation (Placement(transformation(extent={{78,-42},{80,-8}})));
+  Electrical.Buses.BusExt SSEGREDO(
+    v_0=pf.powerflow.bus.v3,
+    angle_0=pf.powerflow.bus.A3,
+    V_b=500000,                    nn=3, np=1) annotation (Placement(transformation(extent={{-22,-60},{-20,-26}})));
+  Electrical.Buses.BusExt IVAIPORA6(
+    v_0=pf.powerflow.bus.v6,
+    angle_0=pf.powerflow.bus.A6,
+    V_b=765000,                     np=3, nn=3) annotation (Placement(transformation(extent={{0,34},{2,68}})));
+  Electrical.Buses.BusExt ITAIPU(
+    v_0=pf.powerflow.bus.v4,
+    angle_0=pf.powerflow.bus.A4,
+    V_b=765000,                  np=2, nn=1)
+                                       annotation (Placement(transformation(extent={{-60,34},{-58,68}})));
+  Electrical.Buses.BusExt EQUIVALENT(
+    v_0=pf.powerflow.bus.v7,
+    angle_0=pf.powerflow.bus.A7,
+    V_b=765000,                      np=1, nn=2) annotation (Placement(transformation(extent={{78,34},{80,68}})));
+  Electrical.Branches.PSSE.TwoWindingTransformer twoWindingTransformer(
+    CZ=1,
+    R=0,
+    X=0.039,
+    G=0,
+    B=0,
+    CW=1,
+    VNOM1=765000,
+    VB1=765000,
+    VNOM2=500000,
+    VB2=500000,
+    S_n=1000000000)                                                    annotation (Placement(transformation(
+        extent={{-8,-8},{8,8}},
+        rotation=270,
+        origin={20,30})));
+  Electrical.Banks.PSSE.Shunt shunt(G=0, B=0.1792)
+                                    annotation (Placement(transformation(extent={{104,-28},{112,-20}})));
+  Electrical.Banks.PSSE.Shunt shunt1(G=0, B=0.1491)
+                                     annotation (Placement(transformation(extent={{-84,-38},{-76,-30}})));
+  Electrical.Banks.PSSE.Shunt shunt2(G=0, B=0.1142)
+                                     annotation (Placement(transformation(extent={{-36,-64},{-28,-56}})));
+  Electrical.Banks.PSSE.Shunt shunt4(G=0, B=0.033)
+                                     annotation (Placement(transformation(extent={{-28,-8},{-20,0}})));
+  Electrical.Banks.PSSE.Shunt shunt3(G=0, B=0.0368)
+                                     annotation (Placement(transformation(extent={{-78,34},{-70,42}})));
+  Electrical.Banks.PSSE.Shunt shunt6(G=0, B=0.042)
+                                     annotation (Placement(transformation(extent={{92,36},{100,44}})));
+  Electrical.Banks.PSSE.Shunt shunt5(G=0, B=2.142)
+                                     annotation (Placement(transformation(extent={{-34,34},{-26,42}})));
+  Electrical.Loads.PSSE.Load load(
+    P_0=pf.powerflow.load.PL1,
+    Q_0=pf.powerflow.load.QL1,
+    v_0=pf.powerflow.bus.v1,
+    angle_0=pf.powerflow.bus.A1,
+    PQBRAK=0.7,
+    characteristic=2,
+    V_b=500000)             annotation (Placement(transformation(extent={{84,-48},{92,-40}})));
+  Electrical.Loads.PSSE.Load load1(
+    P_0=pf.powerflow.load.PL2,
+    Q_0=pf.powerflow.load.QL2,
+    v_0=pf.powerflow.bus.v2,
+    angle_0=pf.powerflow.bus.A2,
+    PQBRAK=0.7,
+    characteristic=2,
+    V_b=500000)              annotation (Placement(transformation(extent={{-74,-48},{-66,-40}})));
+  Electrical.Loads.PSSE.Load load2(
+    P_0=pf.powerflow.load.PL3,
+    Q_0=pf.powerflow.load.QL3,
+    v_0=pf.powerflow.bus.v3,
+    angle_0=pf.powerflow.bus.A3,
+    PQBRAK=0.7,
+    characteristic=2,
+    V_b=500000)              annotation (Placement(transformation(extent={{-46,-58},{-38,-50}})));
+  Electrical.Loads.PSSE.Load load3(
+    P_0=pf.powerflow.load.PL4,
+    Q_0=pf.powerflow.load.QL4,
+    v_0=pf.powerflow.bus.v4,
+    angle_0=pf.powerflow.bus.A4,
+    PQBRAK=0.7,
+    characteristic=2,
+    V_b=765000)              annotation (Placement(transformation(extent={{-50,32},{-42,40}})));
+  Electrical.Loads.PSSE.Load load4(
+    P_0=pf.powerflow.load.PL5,
+    Q_0=pf.powerflow.load.QL5,
+    v_0=pf.powerflow.bus.v5,
+    angle_0=pf.powerflow.bus.A5,
+    PQBRAK=0.7,
+    characteristic=2,
+    V_b=500000)              annotation (Placement(transformation(extent={{-14,-12},{-6,-4}})));
+  Electrical.Loads.PSSE.Load load5(
+    P_0=pf.powerflow.load.PL6,
+    Q_0=pf.powerflow.load.QL6,
+    v_0=pf.powerflow.bus.v6,
+    angle_0=pf.powerflow.bus.A6,
+    V_b=765000,
+    PQBRAK=0.7,
+    characteristic=2)
+                  annotation (Placement(transformation(extent={{30,38},{38,46}})));
+  Electrical.Loads.PSSE.Load load7(
+    P_0=pf.powerflow.load.PL8,
+    Q_0=pf.powerflow.load.QL8,
+    v_0=pf.powerflow.bus.v7,
+    angle_0=pf.powerflow.bus.A7,
+    PQBRAK=0.7,
+    characteristic=2,
+    V_b=765000)              annotation (Placement(transformation(extent={{62,36},{70,44}})));
+  inner Electrical.SystemBase SysData(S_b=1000000000,
+                                      fn=60) annotation (Placement(transformation(extent={{-116,74},{-72,96}})));
+  Electrical.Branches.PwLine line_1_5(
+    R=0.019,
+    X=0.245,
+    G=0,
+    B=0)                                                annotation (Placement(transformation(extent={{36,-22},{48,-10}})));
+  Electrical.Branches.PwLine line_1_3(
+    R=0.003,
+    X=0.038,
+    G=0,
+    B=0)                                                annotation (Placement(transformation(extent={{20,-40},{32,-28}})));
+  Electrical.Branches.PwLine line_2_5(
+    R=0.015,
+    X=0.225,
+    G=0,
+    B=0)                                                annotation (Placement(transformation(extent={{-34,-22},{-22,-10}})));
+  Electrical.Branches.PwLine line_2_3(
+    R=0.005,
+    X=0.076,
+    G=0,
+    B=0)                                                annotation (Placement(transformation(extent={{-46,-40},{-34,-28}})));
+  Electrical.Branches.PwLine line_4_6(
+    R=0.0029,
+    X=0.0734,
+    G=0,
+    B=0)                                                  annotation (Placement(transformation(extent={{-34,54},{-22,66}})));
+  Electrical.Branches.PwLine line_1_1(
+    R=0.004,
+    X=0.057,
+    G=0,
+    B=0)                                                      annotation (Placement(transformation(extent={{36,54},{48,66}})));
+  Data.PowerFlow pf(redeclare record PowerFlow = OpenIPSL.Examples.Brazil7Bus.Data.PF00000) annotation (Placement(transformation(extent={{-114,30},{-100,44}})));
+  Electrical.Loads.PSSE.Load_switch load6(
+    P_0=0,
+    Q_0=-500000000,
+    v_0=pf.powerflow.bus.v6,
+    angle_0=pf.powerflow.bus.A6,
+    PQBRAK=0.7,
+    characteristic=2,
+    V_b=765000,
+    t1=1,
+    t2=1.1)                  annotation (Placement(transformation(extent={{-16,30},{-8,38}})));
+  Electrical.Sources.SourceBehindImpedance.VoltageSources.VSource ita(
+    P_0=62600000,
+    Q_0=24300000,
+    v_0=1.039,
+    angle_0(displayUnit="deg") = 0.84561202259125)
+    annotation (Placement(transformation(extent={{-106,48},{-86,68}})));
+  Electrical.Sources.SourceBehindImpedance.VoltageSources.VSource ssan(
+    P_0=692300000,
+    Q_0=-184000000,
+    v_0=1.03,
+    angle_0(displayUnit="deg") = 0.47507862239286)
+    annotation (Placement(transformation(extent={{-100,-22},{-80,-2}})));
+  Electrical.Buses.InfiniteBus equiv(
+    P_0=2884000000,
+    Q_0=-196000000,
+    v_0=0.9660,
+    angle_0(displayUnit="deg") = 0)
+    annotation (Placement(transformation(extent={{52,74},{72,94}})));
+  Electrical.Sources.SourceBehindImpedance.VoltageSources.VSource seg(
+    P_0=688200000,
+    Q_0=-235000000,
+    v_0=1.0290,
+    angle_0(displayUnit="deg") = 0.46425758103049)
+    annotation (Placement(transformation(extent={{-38,-98},{-18,-78}})));
+  Electrical.Sources.SourceBehindImpedance.VoltageSources.VSource foz(
+    P_0=2405000000,
+    Q_0=-467000000,
+    v_0=1.03,
+    angle_0(displayUnit="deg") = 0.42812926551421)
+    annotation (Placement(transformation(extent={{66,-80},{86,-60}})));
+equation
+  connect(twoWindingTransformer.p, IVAIPORA6.p[1]) annotation (Line(points={{20,38.8},{20,44},{2,44},{2,47.6}},  color={0,0,255}));
+  connect(twoWindingTransformer.n, IVAIPORA5.p[1]) annotation (Line(points={{20,21.2},{20,8},{2,8},{2,-6.45}}, color={0,0,255}));
+  connect(shunt.p, FOZAREIA.p[1]) annotation (Line(points={{108,-20},{108,-16},
+          {80,-16},{80,-27.55}},                                                                   color={0,0,255}));
+  connect(shunt1.p, SSANTIAGO.n[1]) annotation (Line(points={{-80,-30},{-80,-26},
+          {-62,-26},{-62,-27.55}},                                                                     color={0,0,255}));
+  connect(shunt2.p, SSEGREDO.n[1]) annotation (Line(points={{-32,-56},{-32,-52},{-22,-52},{-22,-46.4}},
+                                                                                                      color={0,0,255}));
+  connect(shunt4.p, IVAIPORA5.n[1]) annotation (Line(points={{-24,0},{-24,8},{0,8},{0,-7.6}},
+                                                                                            color={0,0,255}));
+  connect(shunt3.p, ITAIPU.n[1]) annotation (Line(points={{-74,42},{-74,50},{
+          -60,50},{-60,51}},                                                                       color={0,0,255}));
+  connect(shunt6.p, EQUIVALENT.p[1]) annotation (Line(points={{96,44},{96,50},{
+          80,50},{80,51}},                                                                         color={0,0,255}));
+  connect(shunt5.p, IVAIPORA6.n[1]) annotation (Line(points={{-30,42},{-30,47.6},{0,47.6}},       color={0,0,255}));
+  connect(load.p, FOZAREIA.p[2]) annotation (Line(points={{88,-40},{88,-34},{80,
+          -34},{80,-22.45}},                                                                      color={0,0,255}));
+  connect(load1.p, SSANTIAGO.n[2]) annotation (Line(points={{-70,-40},{-70,-32},
+          {-62,-32},{-62,-22.45}},                                                                      color={0,0,255}));
+  connect(load2.p, SSEGREDO.n[2]) annotation (Line(points={{-42,-50},{-42,-44},{-22,-44},{-22,-43}},   color={0,0,255}));
+  connect(load3.p, ITAIPU.p[1]) annotation (Line(points={{-46,40},{-46,50},{-58,50},{-58,48.45}}, color={0,0,255}));
+  connect(load4.p, IVAIPORA5.n[2]) annotation (Line(points={{-10,-4},{-10,0},{0,0},{0,-3}},
+                                                                                         color={0,0,255}));
+  connect(load5.p, IVAIPORA6.p[2]) annotation (Line(points={{34,46},{34,50},{2,50},{2,51}},   color={0,0,255}));
+  connect(load7.p, EQUIVALENT.n[1]) annotation (Line(points={{66,44},{66,50},{78,50},{78,48.45}}, color={0,0,255}));
+  connect(IVAIPORA5.p[2], line_1_5.p) annotation (Line(points={{2,0.45},{2,-16},{36.6,-16}}, color={0,0,255}));
+  connect(line_1_5.n, FOZAREIA.n[1]) annotation (Line(points={{47.4,-16},{78,-16},{78,-27.55}}, color={0,0,255}));
+  connect(SSEGREDO.p[1], line_1_3.p) annotation (Line(points={{-20,-43},{-20,
+          -34},{20.6,-34}},                                                                       color={0,0,255}));
+  connect(line_1_3.n, FOZAREIA.n[2]) annotation (Line(points={{31.4,-34},{78,-34},{78,-22.45}}, color={0,0,255}));
+  connect(IVAIPORA5.n[3], line_2_5.n) annotation (Line(points={{0,1.6},{0,-16},{-22.6,-16}}, color={0,0,255}));
+  connect(line_2_5.p, SSANTIAGO.p[1]) annotation (Line(points={{-33.4,-16},{-60,-16},{-60,-27.55}}, color={0,0,255}));
+  connect(SSANTIAGO.p[2], line_2_3.p) annotation (Line(points={{-60,-22.45},{-60,-34},{-45.4,-34}}, color={0,0,255}));
+  connect(line_2_3.n, SSEGREDO.n[3]) annotation (Line(points={{-34.6,-34},{-22,-34},{-22,-39.6}}, color={0,0,255}));
+  connect(IVAIPORA6.n[2], line_4_6.n) annotation (Line(points={{0,51},{0,60},{-22.6,60}},    color={0,0,255}));
+  connect(line_4_6.p, ITAIPU.p[2]) annotation (Line(points={{-33.4,60},{-58,60},{-58,53.55}}, color={0,0,255}));
+  connect(IVAIPORA6.p[3], line_1_1.p) annotation (Line(points={{2,54.4},{2,60},{36.6,60}}, color={0,0,255}));
+  connect(line_1_1.n, EQUIVALENT.n[2]) annotation (Line(points={{47.4,60},{78,60},{78,53.55}}, color={0,0,255}));
+  connect(load6.p, IVAIPORA6.n[3]) annotation (Line(points={{-12,38},{-12,44},{0,44},{0,54.4}}, color={0,0,255}));
+  connect(ita.p, ITAIPU.n[1]) annotation (Line(points={{-85,58},{-66,58},{-66,
+          51},{-60,51}}, color={0,0,255}));
+  connect(ssan.p, SSANTIAGO.n[1]) annotation (Line(points={{-79,-12},{-70,-12},
+          {-70,-27.55},{-62,-27.55}}, color={0,0,255}));
+  connect(equiv.p, EQUIVALENT.p[1]) annotation (Line(points={{73,84},{112,84},{
+          112,51},{80,51}}, color={0,0,255}));
+  connect(seg.p, SSEGREDO.p[1]) annotation (Line(points={{-17,-88},{2,-88},{2,
+          -43},{-20,-43}}, color={0,0,255}));
+  connect(foz.p, FOZAREIA.n[1]) annotation (Line(points={{87,-70},{106,-70},{
+          106,-27.55},{78,-27.55}}, color={0,0,255}));
+  annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-120,-100},{120,100}})),
+                                                                 Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-120,-100},{120,100}}), graphics={
+        Text(
+          extent={{-60,74},{-40,68}},
+          textColor={0,140,72},
+          textString="4 ITAIPU"),
+        Text(
+          extent={{76,-2},{104,-8}},
+          textColor={0,140,72},
+          textString="1 FOZ AREIA"),
+        Text(
+          extent={{-72,-2},{-38,-8}},
+          textColor={0,140,72},
+          textString="2 S. SANTIAGO"),
+        Text(
+          extent={{-40,-20},{-8,-26}},
+          textColor={0,140,72},
+          textString="3 S. SEGREDO"),
+        Text(
+          extent={{0,74},{26,68}},
+          textColor={0,140,72},
+          textString="6 IVAIPORA"),
+        Text(
+          extent={{78,74},{110,68}},
+          textColor={0,140,72},
+          textString="7 EQUIVALENT"),
+        Text(
+          extent={{-14,26},{12,20}},
+          textColor={0,140,72},
+          textString="5 IVAIPORA")}));
+end Network_VS_internalimpedance;
