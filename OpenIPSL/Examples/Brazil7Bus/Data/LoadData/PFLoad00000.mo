@@ -14,7 +14,7 @@ extends OpenIPSL.Examples.Brazil7Bus.Data.LoadData.LoadTemplate(
     PL6=1e06*(-4.9000000),
     QL6=1e06*(79.8000000),
     PL7=1e06*(0.0000000),
-    QL7=1e06*(500.0000000),
+    QL7=1e06*(-500.0000000),
     PL8=1e06*(2884.0000000),
     QL8=1e06*(-196.0000000));
 

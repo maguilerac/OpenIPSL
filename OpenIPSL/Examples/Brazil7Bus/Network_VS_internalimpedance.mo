@@ -236,8 +236,8 @@ equation
           51},{-60,51}}, color={0,0,255}));
   connect(ssan.p, SSANTIAGO.n[1]) annotation (Line(points={{-79,-12},{-70,-12},
           {-70,-27.55},{-62,-27.55}}, color={0,0,255}));
-  connect(equiv.p, EQUIVALENT.p[1]) annotation (Line(points={{73,84},{112,84},{
-          112,51},{80,51}}, color={0,0,255}));
+  connect(equiv.p, EQUIVALENT.p[1]) annotation (Line(points={{72,84},{112,84},{112,51},{80,51}},
+                            color={0,0,255}));
   connect(seg.p, SSEGREDO.p[1]) annotation (Line(points={{-17,-88},{2,-88},{2,
           -43},{-20,-43}}, color={0,0,255}));
   connect(foz.p, FOZAREIA.n[1]) annotation (Line(points={{87,-70},{106,-70},{
